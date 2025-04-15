@@ -7,6 +7,7 @@
 package pvz_v1
 
 import (
+	_ "github.com/envoyproxy/protoc-gen-validate/validate"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -110,18 +111,147 @@ func (x *DummyLoginResponse) GetToken() string {
 	return ""
 }
 
+type RegisterRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Password      string                 `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterRequest) Reset() {
+	*x = RegisterRequest{}
+	mi := &file_api_pvz_login_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterRequest) ProtoMessage() {}
+
+func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_login_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
+func (*RegisterRequest) Descriptor() ([]byte, []int) {
+	return file_api_pvz_login_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *RegisterRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *RegisterRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *RegisterRequest) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+type RegisterResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Role          string                 `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegisterResponse) Reset() {
+	*x = RegisterResponse{}
+	mi := &file_api_pvz_login_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegisterResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegisterResponse) ProtoMessage() {}
+
+func (x *RegisterResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_login_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegisterResponse.ProtoReflect.Descriptor instead.
+func (*RegisterResponse) Descriptor() ([]byte, []int) {
+	return file_api_pvz_login_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RegisterResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *RegisterResponse) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *RegisterResponse) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
 var File_api_pvz_login_service_proto protoreflect.FileDescriptor
 
 const file_api_pvz_login_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1bapi/pvz/login_service.proto\x12\x06pvz.v1\x1a\x1cgoogle/api/annotations.proto\"'\n" +
+	"\x1bapi/pvz/login_service.proto\x12\x06pvz.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x17validate/validate.proto\"'\n" +
 	"\x11DummyLoginRequest\x12\x12\n" +
 	"\x04role\x18\x01 \x01(\tR\x04role\"*\n" +
 	"\x12DummyLoginResponse\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token2k\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\"`\n" +
+	"\x0fRegisterRequest\x12\x1d\n" +
+	"\x05email\x18\x01 \x01(\tB\a\xfaB\x04r\x02`\x01R\x05email\x12\x1a\n" +
+	"\bpassword\x18\x02 \x01(\tR\bpassword\x12\x12\n" +
+	"\x04role\x18\x03 \x01(\tR\x04role\"_\n" +
+	"\x10RegisterResponse\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12\x1d\n" +
+	"\x05email\x18\x02 \x01(\tB\a\xfaB\x04r\x02`\x01R\x05email\x12\x12\n" +
+	"\x04role\x18\x03 \x01(\tR\x04role2\xc0\x01\n" +
 	"\fLoginService\x12[\n" +
 	"\n" +
-	"DummyLogin\x12\x19.pvz.v1.DummyLoginRequest\x1a\x1a.pvz.v1.DummyLoginResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/dummyLoginB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
+	"DummyLogin\x12\x19.pvz.v1.DummyLoginRequest\x1a\x1a.pvz.v1.DummyLoginResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/dummyLogin\x12S\n" +
+	"\bRegister\x12\x17.pvz.v1.RegisterRequest\x1a\x18.pvz.v1.RegisterResponse\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/registerB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
 
 var (
 	file_api_pvz_login_service_proto_rawDescOnce sync.Once
@@ -135,16 +265,20 @@ func file_api_pvz_login_service_proto_rawDescGZIP() []byte {
 	return file_api_pvz_login_service_proto_rawDescData
 }
 
-var file_api_pvz_login_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_api_pvz_login_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_api_pvz_login_service_proto_goTypes = []any{
 	(*DummyLoginRequest)(nil),  // 0: pvz.v1.DummyLoginRequest
 	(*DummyLoginResponse)(nil), // 1: pvz.v1.DummyLoginResponse
+	(*RegisterRequest)(nil),    // 2: pvz.v1.RegisterRequest
+	(*RegisterResponse)(nil),   // 3: pvz.v1.RegisterResponse
 }
 var file_api_pvz_login_service_proto_depIdxs = []int32{
 	0, // 0: pvz.v1.LoginService.DummyLogin:input_type -> pvz.v1.DummyLoginRequest
-	1, // 1: pvz.v1.LoginService.DummyLogin:output_type -> pvz.v1.DummyLoginResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: pvz.v1.LoginService.Register:input_type -> pvz.v1.RegisterRequest
+	1, // 2: pvz.v1.LoginService.DummyLogin:output_type -> pvz.v1.DummyLoginResponse
+	3, // 3: pvz.v1.LoginService.Register:output_type -> pvz.v1.RegisterResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -161,7 +295,7 @@ func file_api_pvz_login_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_pvz_login_service_proto_rawDesc), len(file_api_pvz_login_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
