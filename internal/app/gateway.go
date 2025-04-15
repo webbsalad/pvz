@@ -47,13 +47,21 @@ func gatewayOption() fx.Option {
 
 		opts := []grpc.DialOption{grpc.WithInsecure()}
 
-		err := pb.RegisterPVZServiceHandlerFromEndpoint(
+		if err := pb.RegisterPVZServiceHandlerFromEndpoint(
 			context.Background(),
 			mux,
 			fmt.Sprintf("localhost:%d", *grpcPort),
 			opts,
-		)
-		if err != nil {
+		); err != nil {
+			log.Fatalf("failed register gateway: %v", err)
+		}
+
+		if err := pb.RegisterLoginServiceHandlerFromEndpoint(
+			context.Background(),
+			mux,
+			fmt.Sprintf("localhost:%d", *grpcPort),
+			opts,
+		); err != nil {
 			log.Fatalf("failed register gateway: %v", err)
 		}
 
