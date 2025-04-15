@@ -5,11 +5,20 @@ package pvz.v1;
 option go_package = "github.com/webbsalad/pvz/pvz_v1;pvz_v1";
 
 import "google/api/annotations.proto";
+import "validate/validate.proto";
+
 
 service LoginService {
     rpc DummyLogin(DummyLoginRequest) returns (DummyLoginResponse) {
         option (google.api.http) = {
             post: "/dummyLogin",
+            body: "*"
+        };
+    };
+
+    rpc Register(RegisterRequest) returns (RegisterResponse) {
+        option (google.api.http) = {
+            post: "/register",
             body: "*"
         };
     };
@@ -23,4 +32,16 @@ message DummyLoginRequest {
 
 message DummyLoginResponse {
     string token = 1;
+}
+
+message RegisterRequest {
+    string email = 1 [(validate.rules).string.email = true];
+    string password = 2;
+    string role = 3;
+}
+
+message RegisterResponse {
+    string id = 1  [(validate.rules).string.uuid = true];
+    string email = 2 [(validate.rules).string.email = true];
+    string role = 3;
 }
