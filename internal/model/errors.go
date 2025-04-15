@@ -16,4 +16,6 @@ var (
 	ErrUserAlreadyExist = fmt.Errorf("user already exist: %w", ErrAlreadyExist)
 	ErrPasswordMismatch = fmt.Errorf("password mismatch: %w", ErrUnauthenticated)
 	ErrPVZAlreadyExist  = fmt.Errorf("pvz already exist: %w", ErrAlreadyExist)
+	ErrJwtExpired       = fmt.Errorf("expired jwt token: %w", ErrPermissionDenied)
+	ErrWrongRole        = fmt.Errorf("wrong role: %w", ErrPermissionDenied)
 )
