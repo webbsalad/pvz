@@ -10,6 +10,8 @@ import (
 
 func ConvertError(err error) error {
 	switch {
+	case errors.Is(err, model.ErrUnauthenticated):
+		return status.Error(codes.Unauthenticated, err.Error())
 	case errors.Is(err, model.ErrPermissionDenied):
 		return status.Error(codes.PermissionDenied, err.Error())
 	case errors.Is(err, model.ErrNotFound):

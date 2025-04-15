@@ -9,9 +9,10 @@ var (
 	ErrPermissionDenied = errors.New("permission denied")
 	ErrNotFound         = errors.New("not found")
 	ErrAlreadyExist     = errors.New("already exist")
+	ErrUnauthenticated  = errors.New("unauthenticated")
 )
 
 var (
 	ErrUserAlreadyExist = fmt.Errorf("user already exist: %w", ErrAlreadyExist)
-	ErrPasswordMismatch = fmt.Errorf("password mismatch: %w", ErrPermissionDenied)
+	ErrPasswordMismatch = fmt.Errorf("password mismatch: %w", ErrUnauthenticated)
 )
