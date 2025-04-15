@@ -1,3 +1,11 @@
 package pvz
 
-type Repository interface{}
+import (
+	"context"
+
+	"github.com/webbsalad/pvz/internal/model"
+)
+
+type Repository interface {
+	CreatePVZ(ctx context.Context, pvz model.PVZ) (model.PVZ, error)
+}

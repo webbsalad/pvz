@@ -4,9 +4,18 @@ package pvz.v1;
 
 option go_package = "github.com/webbsalad/pvz/pvz_v1;pvz_v1";
 
+import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 service PVZService {
+  rpc CreatePVZ(CreatePVZRequest) returns (CreatePVZResponse) {
+    option (google.api.http) = {
+        post: "/pvz",
+        body: "*"
+    };
+  };  
+
   rpc GetPVZList(GetPVZListRequest) returns (GetPVZListResponse);
 }
 
@@ -25,4 +34,16 @@ message GetPVZListRequest {}
 
 message GetPVZListResponse {
   repeated PVZ pvzs = 1;
+}
+
+message CreatePVZRequest{
+  string id = 1 [(validate.rules).string.uuid = true];
+  google.protobuf.Timestamp registration_date = 2;
+  string city = 3;
+}
+
+message CreatePVZResponse {
+  string id = 1 [(validate.rules).string.uuid = true];
+  google.protobuf.Timestamp registration_date = 2;
+  string city = 3;
 }

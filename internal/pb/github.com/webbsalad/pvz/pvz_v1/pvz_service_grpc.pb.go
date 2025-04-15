@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	PVZService_CreatePVZ_FullMethodName  = "/pvz.v1.PVZService/CreatePVZ"
 	PVZService_GetPVZList_FullMethodName = "/pvz.v1.PVZService/GetPVZList"
 )
 
@@ -26,6 +27,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PVZServiceClient interface {
+	CreatePVZ(ctx context.Context, in *CreatePVZRequest, opts ...grpc.CallOption) (*CreatePVZResponse, error)
 	GetPVZList(ctx context.Context, in *GetPVZListRequest, opts ...grpc.CallOption) (*GetPVZListResponse, error)
 }
 
@@ -35,6 +37,16 @@ type pVZServiceClient struct {
 
 func NewPVZServiceClient(cc grpc.ClientConnInterface) PVZServiceClient {
 	return &pVZServiceClient{cc}
+}
+
+func (c *pVZServiceClient) CreatePVZ(ctx context.Context, in *CreatePVZRequest, opts ...grpc.CallOption) (*CreatePVZResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreatePVZResponse)
+	err := c.cc.Invoke(ctx, PVZService_CreatePVZ_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *pVZServiceClient) GetPVZList(ctx context.Context, in *GetPVZListRequest, opts ...grpc.CallOption) (*GetPVZListResponse, error) {
@@ -51,6 +63,7 @@ func (c *pVZServiceClient) GetPVZList(ctx context.Context, in *GetPVZListRequest
 // All implementations must embed UnimplementedPVZServiceServer
 // for forward compatibility.
 type PVZServiceServer interface {
+	CreatePVZ(context.Context, *CreatePVZRequest) (*CreatePVZResponse, error)
 	GetPVZList(context.Context, *GetPVZListRequest) (*GetPVZListResponse, error)
 	mustEmbedUnimplementedPVZServiceServer()
 }
@@ -62,6 +75,9 @@ type PVZServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPVZServiceServer struct{}
 
+func (UnimplementedPVZServiceServer) CreatePVZ(context.Context, *CreatePVZRequest) (*CreatePVZResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePVZ not implemented")
+}
 func (UnimplementedPVZServiceServer) GetPVZList(context.Context, *GetPVZListRequest) (*GetPVZListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPVZList not implemented")
 }
@@ -84,6 +100,24 @@ func RegisterPVZServiceServer(s grpc.ServiceRegistrar, srv PVZServiceServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&PVZService_ServiceDesc, srv)
+}
+
+func _PVZService_CreatePVZ_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreatePVZRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PVZServiceServer).CreatePVZ(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PVZService_CreatePVZ_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PVZServiceServer).CreatePVZ(ctx, req.(*CreatePVZRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _PVZService_GetPVZList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -111,6 +145,10 @@ var PVZService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "pvz.v1.PVZService",
 	HandlerType: (*PVZServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreatePVZ",
+			Handler:    _PVZService_CreatePVZ_Handler,
+		},
 		{
 			MethodName: "GetPVZList",
 			Handler:    _PVZService_GetPVZList_Handler,
