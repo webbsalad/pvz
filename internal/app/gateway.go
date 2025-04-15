@@ -12,6 +12,7 @@ import (
 	"github.com/rs/cors"
 	"go.uber.org/fx"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	pb "github.com/webbsalad/pvz/internal/pb/github.com/webbsalad/pvz/pvz_v1"
 )
@@ -45,15 +46,23 @@ func gatewayOption() fx.Option {
 	return fx.Invoke(func(lc fx.Lifecycle) {
 		mux := runtime.NewServeMux()
 
-		opts := []grpc.DialOption{grpc.WithInsecure()}
+		opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 
-		err := pb.RegisterPVZServiceHandlerFromEndpoint(
+		if err := pb.RegisterPVZServiceHandlerFromEndpoint(
 			context.Background(),
 			mux,
 			fmt.Sprintf("localhost:%d", *grpcPort),
 			opts,
-		)
-		if err != nil {
+		); err != nil {
+			log.Fatalf("failed register gateway: %v", err)
+		}
+
+		if err := pb.RegisterLoginServiceHandlerFromEndpoint(
+			context.Background(),
+			mux,
+			fmt.Sprintf("localhost:%d", *grpcPort),
+			opts,
+		); err != nil {
 			log.Fatalf("failed register gateway: %v", err)
 		}
 

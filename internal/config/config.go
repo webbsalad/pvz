@@ -8,7 +8,8 @@ import (
 )
 
 type Config struct {
-	DSN string `yaml:"dsn"`
+	DSN       string `yaml:"dsn"`
+	JWTSecret string `yaml:"jwt_secret"`
 }
 
 func NewConfig() Config {
@@ -18,6 +19,7 @@ func NewConfig() Config {
 	}
 
 	return Config{
-		DSN: os.Getenv("DSN"),
+		DSN:       os.Getenv("DSN"),
+		JWTSecret: os.Getenv("JWT_SECRET"),
 	}
 }

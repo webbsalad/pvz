@@ -4,4 +4,23 @@ package pvz.v1;
 
 option go_package = "github.com/webbsalad/pvz/pvz_v1;pvz_v1";
 
-service LoginService {}
+import "google/api/annotations.proto";
+
+service LoginService {
+    rpc DummyLogin(DummyLoginRequest) returns (DummyLoginResponse) {
+        option (google.api.http) = {
+            post: "/dummyLogin",
+            body: "*"
+        };
+    };
+}
+
+
+
+message DummyLoginRequest {
+    string role = 1;
+}
+
+message DummyLoginResponse {
+    string token = 1;
+}
