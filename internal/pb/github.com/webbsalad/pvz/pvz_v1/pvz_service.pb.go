@@ -7,6 +7,8 @@
 package pvz_v1
 
 import (
+	_ "github.com/envoyproxy/protoc-gen-validate/validate"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -208,23 +210,152 @@ func (x *GetPVZListResponse) GetPvzs() []*PVZ {
 	return nil
 }
 
+type CreatePVZRequest struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Id               string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	RegistrationDate *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=registration_date,json=registrationDate,proto3" json:"registration_date,omitempty"`
+	City             string                 `protobuf:"bytes,3,opt,name=city,proto3" json:"city,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *CreatePVZRequest) Reset() {
+	*x = CreatePVZRequest{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatePVZRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePVZRequest) ProtoMessage() {}
+
+func (x *CreatePVZRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePVZRequest.ProtoReflect.Descriptor instead.
+func (*CreatePVZRequest) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CreatePVZRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CreatePVZRequest) GetRegistrationDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RegistrationDate
+	}
+	return nil
+}
+
+func (x *CreatePVZRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
+type CreatePVZResponse struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Id               string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	RegistrationDate *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=registration_date,json=registrationDate,proto3" json:"registration_date,omitempty"`
+	City             string                 `protobuf:"bytes,3,opt,name=city,proto3" json:"city,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *CreatePVZResponse) Reset() {
+	*x = CreatePVZResponse{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreatePVZResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreatePVZResponse) ProtoMessage() {}
+
+func (x *CreatePVZResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreatePVZResponse.ProtoReflect.Descriptor instead.
+func (*CreatePVZResponse) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CreatePVZResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CreatePVZResponse) GetRegistrationDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RegistrationDate
+	}
+	return nil
+}
+
+func (x *CreatePVZResponse) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
 var File_api_pvz_pvz_service_proto protoreflect.FileDescriptor
 
 const file_api_pvz_pvz_service_proto_rawDesc = "" +
 	"\n" +
-	"\x19api/pvz/pvz_service.proto\x12\x06pvz.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"r\n" +
+	"\x19api/pvz/pvz_service.proto\x12\x06pvz.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\"r\n" +
 	"\x03PVZ\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12G\n" +
 	"\x11registration_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x10registrationDate\x12\x12\n" +
 	"\x04city\x18\x03 \x01(\tR\x04city\"\x13\n" +
 	"\x11GetPVZListRequest\"5\n" +
 	"\x12GetPVZListResponse\x12\x1f\n" +
-	"\x04pvzs\x18\x01 \x03(\v2\v.pvz.v1.PVZR\x04pvzs*P\n" +
+	"\x04pvzs\x18\x01 \x03(\v2\v.pvz.v1.PVZR\x04pvzs\"\x89\x01\n" +
+	"\x10CreatePVZRequest\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12G\n" +
+	"\x11registration_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x10registrationDate\x12\x12\n" +
+	"\x04city\x18\x03 \x01(\tR\x04city\"\x8a\x01\n" +
+	"\x11CreatePVZResponse\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12G\n" +
+	"\x11registration_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x10registrationDate\x12\x12\n" +
+	"\x04city\x18\x03 \x01(\tR\x04city*P\n" +
 	"\x0fReceptionStatus\x12 \n" +
 	"\x1cRECEPTION_STATUS_IN_PROGRESS\x10\x00\x12\x1b\n" +
-	"\x17RECEPTION_STATUS_CLOSED\x10\x012Q\n" +
+	"\x17RECEPTION_STATUS_CLOSED\x10\x012\xa4\x01\n" +
 	"\n" +
-	"PVZService\x12C\n" +
+	"PVZService\x12Q\n" +
+	"\tCreatePVZ\x12\x18.pvz.v1.CreatePVZRequest\x1a\x19.pvz.v1.CreatePVZResponse\"\x0f\x82\xd3\xe4\x93\x02\t:\x01*\"\x04/pvz\x12C\n" +
 	"\n" +
 	"GetPVZList\x12\x19.pvz.v1.GetPVZListRequest\x1a\x1a.pvz.v1.GetPVZListResponseB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
 
@@ -241,24 +372,30 @@ func file_api_pvz_pvz_service_proto_rawDescGZIP() []byte {
 }
 
 var file_api_pvz_pvz_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_pvz_pvz_service_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_api_pvz_pvz_service_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_api_pvz_pvz_service_proto_goTypes = []any{
 	(ReceptionStatus)(0),          // 0: pvz.v1.ReceptionStatus
 	(*PVZ)(nil),                   // 1: pvz.v1.PVZ
 	(*GetPVZListRequest)(nil),     // 2: pvz.v1.GetPVZListRequest
 	(*GetPVZListResponse)(nil),    // 3: pvz.v1.GetPVZListResponse
-	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(*CreatePVZRequest)(nil),      // 4: pvz.v1.CreatePVZRequest
+	(*CreatePVZResponse)(nil),     // 5: pvz.v1.CreatePVZResponse
+	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
 }
 var file_api_pvz_pvz_service_proto_depIdxs = []int32{
-	4, // 0: pvz.v1.PVZ.registration_date:type_name -> google.protobuf.Timestamp
+	6, // 0: pvz.v1.PVZ.registration_date:type_name -> google.protobuf.Timestamp
 	1, // 1: pvz.v1.GetPVZListResponse.pvzs:type_name -> pvz.v1.PVZ
-	2, // 2: pvz.v1.PVZService.GetPVZList:input_type -> pvz.v1.GetPVZListRequest
-	3, // 3: pvz.v1.PVZService.GetPVZList:output_type -> pvz.v1.GetPVZListResponse
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	6, // 2: pvz.v1.CreatePVZRequest.registration_date:type_name -> google.protobuf.Timestamp
+	6, // 3: pvz.v1.CreatePVZResponse.registration_date:type_name -> google.protobuf.Timestamp
+	4, // 4: pvz.v1.PVZService.CreatePVZ:input_type -> pvz.v1.CreatePVZRequest
+	2, // 5: pvz.v1.PVZService.GetPVZList:input_type -> pvz.v1.GetPVZListRequest
+	5, // 6: pvz.v1.PVZService.CreatePVZ:output_type -> pvz.v1.CreatePVZResponse
+	3, // 7: pvz.v1.PVZService.GetPVZList:output_type -> pvz.v1.GetPVZListResponse
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_api_pvz_pvz_service_proto_init() }
@@ -272,7 +409,7 @@ func file_api_pvz_pvz_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_pvz_pvz_service_proto_rawDesc), len(file_api_pvz_pvz_service_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -35,6 +35,9 @@ var (
 	_ = sort.Sort
 )
 
+// define the regex for a UUID once up-front
+var _pvz_service_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
 // Validate checks the field values on PVZ with the rules defined in the proto
 // definition for this message. If any rules are violated, the first error
 // encountered is returned, or nil if there are no violations.
@@ -403,3 +406,307 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetPVZListResponseValidationError{}
+
+// Validate checks the field values on CreatePVZRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CreatePVZRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreatePVZRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreatePVZRequestMultiError, or nil if none found.
+func (m *CreatePVZRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreatePVZRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = CreatePVZRequestValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetRegistrationDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreatePVZRequestValidationError{
+					field:  "RegistrationDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreatePVZRequestValidationError{
+					field:  "RegistrationDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRegistrationDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreatePVZRequestValidationError{
+				field:  "RegistrationDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for City
+
+	if len(errors) > 0 {
+		return CreatePVZRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CreatePVZRequest) _validateUuid(uuid string) error {
+	if matched := _pvz_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// CreatePVZRequestMultiError is an error wrapping multiple validation errors
+// returned by CreatePVZRequest.ValidateAll() if the designated constraints
+// aren't met.
+type CreatePVZRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreatePVZRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreatePVZRequestMultiError) AllErrors() []error { return m }
+
+// CreatePVZRequestValidationError is the validation error returned by
+// CreatePVZRequest.Validate if the designated constraints aren't met.
+type CreatePVZRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreatePVZRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreatePVZRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreatePVZRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreatePVZRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreatePVZRequestValidationError) ErrorName() string { return "CreatePVZRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreatePVZRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreatePVZRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreatePVZRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreatePVZRequestValidationError{}
+
+// Validate checks the field values on CreatePVZResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CreatePVZResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreatePVZResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreatePVZResponseMultiError, or nil if none found.
+func (m *CreatePVZResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreatePVZResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = CreatePVZResponseValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetRegistrationDate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CreatePVZResponseValidationError{
+					field:  "RegistrationDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CreatePVZResponseValidationError{
+					field:  "RegistrationDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetRegistrationDate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CreatePVZResponseValidationError{
+				field:  "RegistrationDate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for City
+
+	if len(errors) > 0 {
+		return CreatePVZResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CreatePVZResponse) _validateUuid(uuid string) error {
+	if matched := _pvz_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// CreatePVZResponseMultiError is an error wrapping multiple validation errors
+// returned by CreatePVZResponse.ValidateAll() if the designated constraints
+// aren't met.
+type CreatePVZResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreatePVZResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreatePVZResponseMultiError) AllErrors() []error { return m }
+
+// CreatePVZResponseValidationError is the validation error returned by
+// CreatePVZResponse.Validate if the designated constraints aren't met.
+type CreatePVZResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreatePVZResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreatePVZResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreatePVZResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreatePVZResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreatePVZResponseValidationError) ErrorName() string {
+	return "CreatePVZResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreatePVZResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreatePVZResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreatePVZResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreatePVZResponseValidationError{}
