@@ -7,7 +7,11 @@ import (
 	"github.com/webbsalad/pvz/internal/model"
 )
 
-func (s *Service) AddProduct(ctx context.Context, pvzID model.PVZID, productType string) (model.Product, error) {
+func (s *Service) AddProduct(ctx context.Context, role model.Role, pvzID model.PVZID, productType string) (model.Product, error) {
+	if role != model.EMPLOYEE {
+		return model.Product{}, model.ErrWrongRole
+	}
+
 	receptions, err := s.itemReporitory.GetReceptionsByParams(ctx, model.Reception{
 		PVZID:  pvzID,
 		Status: model.IN_PROGRESS,

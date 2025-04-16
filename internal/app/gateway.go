@@ -14,6 +14,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
+	"github.com/webbsalad/pvz/internal/config"
+	"github.com/webbsalad/pvz/internal/utils/jwt"
+
 	pb "github.com/webbsalad/pvz/internal/pb/github.com/webbsalad/pvz/pvz_v1"
 )
 
@@ -29,12 +32,17 @@ func newCORSHandler(h http.Handler) http.Handler {
 	}).Handler(h)
 }
 
-func newBearerAuthHandler(h http.Handler) http.Handler {
+func newBearerAuthHandler(h http.Handler, jwtSecret string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authHeader := r.Header.Get("Authorization")
 		if authHeader != "" && strings.HasPrefix(authHeader, "Bearer ") {
 			token := strings.TrimSpace(strings.TrimPrefix(authHeader, "Bearer "))
-			r.Header.Set("Grpc-Metadata-bearer_token", token)
+			role, err := jwt.ExtractClaimsFromToken(token, jwtSecret)
+			if err != nil {
+				http.Error(w, "Invalid token: "+err.Error(), http.StatusUnauthorized)
+				return
+			}
+			r.Header.Set("Grpc-Metadata-role", string(role))
 		}
 		h.ServeHTTP(w, r)
 	})
@@ -42,40 +50,42 @@ func newBearerAuthHandler(h http.Handler) http.Handler {
 
 func gatewayOption() fx.Option {
 	flag.Parse()
+	cfg := config.NewConfig()
 
 	return fx.Invoke(func(lc fx.Lifecycle) {
 		mux := runtime.NewServeMux()
 
 		opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
+		endpoint := fmt.Sprintf("localhost:%d", *grpcPort)
 
 		if err := pb.RegisterPVZServiceHandlerFromEndpoint(
 			context.Background(),
 			mux,
-			fmt.Sprintf("localhost:%d", *grpcPort),
+			endpoint,
 			opts,
 		); err != nil {
-			log.Fatalf("failed register gateway: %v", err)
+			log.Fatalf("failed register PVZ gateway: %v", err)
 		}
 
 		if err := pb.RegisterLoginServiceHandlerFromEndpoint(
 			context.Background(),
 			mux,
-			fmt.Sprintf("localhost:%d", *grpcPort),
+			endpoint,
 			opts,
 		); err != nil {
-			log.Fatalf("failed register gateway: %v", err)
+			log.Fatalf("failed register Login gateway: %v", err)
 		}
 
 		if err := pb.RegisterItemServiceHandlerFromEndpoint(
 			context.Background(),
 			mux,
-			fmt.Sprintf("localhost:%d", *grpcPort),
+			endpoint,
 			opts,
 		); err != nil {
-			log.Fatalf("failed register gateway: %v", err)
+			log.Fatalf("failed register Item gateway: %v", err)
 		}
 
-		handler := newBearerAuthHandler(newCORSHandler(mux))
+		handler := newBearerAuthHandler(newCORSHandler(mux), cfg.JWTSecret)
 
 		srv := &http.Server{
 			Addr:    fmt.Sprintf(":%d", *gwPort),

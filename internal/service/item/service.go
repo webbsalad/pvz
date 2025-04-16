@@ -7,6 +7,6 @@ import (
 )
 
 type Service interface {
-	CreateReception(ctx context.Context, pvzID model.PVZID) (model.Reception, error)
-	AddProduct(ctx context.Context, pvzID model.PVZID, productType string) (model.Product, error)
+	CreateReception(ctx context.Context, role model.Role, pvzID model.PVZID) (model.Reception, error)
+	AddProduct(ctx context.Context, role model.Role, pvzID model.PVZID, productType string) (model.Product, error)
 }
