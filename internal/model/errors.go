@@ -21,4 +21,5 @@ var (
 	ErrReceptionAlreadyExist = fmt.Errorf("reception already exist : %w", ErrAlreadyExist)
 	ErrReceptionNotFound     = fmt.Errorf("reception not found: %w", ErrNotFound)
 	ErrProductNotFound       = fmt.Errorf("product not found: %w", ErrNotFound)
+	ErrPVZNotFound           = fmt.Errorf("pvz not found; %w", ErrNotFound)
 )
