@@ -118,3 +118,56 @@ func (r *Repository) AddProduct(ctx context.Context, product model.Product) (mod
 
 	return newStoredProduct, nil
 }
+
+func (r *Repository) RemoveProduct(ctx context.Context, receptionID model.ReceptionID) error {
+	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+
+	selectQuery := psql.
+		Select("id").
+		From("product").
+		Where(
+			sq.Eq{"reception_id": receptionID.String()},
+		).
+		OrderBy("date_time DESC").
+		Limit(1)
+
+	q, args, err := selectQuery.ToSql()
+	if err != nil {
+		return fmt.Errorf("build select query: %w", err)
+	}
+
+	var productID string
+	err = r.db.GetContext(ctx, &productID, q, args...)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return model.ErrProductNotFound
+		}
+		return fmt.Errorf("select last product: %w", err)
+	}
+
+	deleteQuery := psql.
+		Delete("product").
+		Where(
+			sq.Eq{"id": productID},
+		)
+
+	qDel, argsDel, err := deleteQuery.ToSql()
+	if err != nil {
+		return fmt.Errorf("build delete query: %w", err)
+	}
+
+	res, err := r.db.ExecContext(ctx, qDel, argsDel...)
+	if err != nil {
+		return fmt.Errorf("remove product: %w", err)
+	}
+
+	rowsAffected, err := res.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("get affected rows: %w", err)
+	}
+	if rowsAffected == 0 {
+		return model.ErrProductNotFound
+	}
+
+	return nil
+}

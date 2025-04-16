@@ -20,4 +20,5 @@ var (
 	ErrWrongRole             = fmt.Errorf("wrong role: %w", ErrPermissionDenied)
 	ErrReceptionAlreadyExist = fmt.Errorf("reception already exist : %w", ErrAlreadyExist)
 	ErrReceptionNotFound     = fmt.Errorf("reception not found: %w", ErrNotFound)
+	ErrProductNotFound       = fmt.Errorf("product not found: %w", ErrNotFound)
 )
