@@ -16,7 +16,7 @@ func (i *Implementation) RemoveProduct(ctx context.Context, req *desc.RemoveProd
 		return nil, status.Errorf(codes.InvalidArgument, "invalid request: %v", err)
 	}
 
-	role, err := metadata.GetRole(ctx)
+	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
@@ -26,7 +26,7 @@ func (i *Implementation) RemoveProduct(ctx context.Context, req *desc.RemoveProd
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
-	if err := i.itemService.RemoveProduct(ctx, role, pvzID); err != nil {
+	if err := i.itemService.RemoveProduct(ctx, userRole, pvzID); err != nil {
 		return nil, convertor.ConvertError(err)
 	}
 

@@ -837,3 +837,290 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RemoveProductResponseValidationError{}
+
+// Validate checks the field values on CloseReceptionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CloseReceptionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CloseReceptionRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CloseReceptionRequestMultiError, or nil if none found.
+func (m *CloseReceptionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CloseReceptionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetPvzId()); err != nil {
+		err = CloseReceptionRequestValidationError{
+			field:  "PvzId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CloseReceptionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CloseReceptionRequest) _validateUuid(uuid string) error {
+	if matched := _item_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// CloseReceptionRequestMultiError is an error wrapping multiple validation
+// errors returned by CloseReceptionRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CloseReceptionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CloseReceptionRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CloseReceptionRequestMultiError) AllErrors() []error { return m }
+
+// CloseReceptionRequestValidationError is the validation error returned by
+// CloseReceptionRequest.Validate if the designated constraints aren't met.
+type CloseReceptionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CloseReceptionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CloseReceptionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CloseReceptionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CloseReceptionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CloseReceptionRequestValidationError) ErrorName() string {
+	return "CloseReceptionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CloseReceptionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCloseReceptionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CloseReceptionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CloseReceptionRequestValidationError{}
+
+// Validate checks the field values on CloseReceptionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CloseReceptionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CloseReceptionResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CloseReceptionResponseMultiError, or nil if none found.
+func (m *CloseReceptionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CloseReceptionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = CloseReceptionResponseValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetDateTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CloseReceptionResponseValidationError{
+					field:  "DateTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CloseReceptionResponseValidationError{
+					field:  "DateTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDateTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CloseReceptionResponseValidationError{
+				field:  "DateTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if err := m._validateUuid(m.GetPvzID()); err != nil {
+		err = CloseReceptionResponseValidationError{
+			field:  "PvzID",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return CloseReceptionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CloseReceptionResponse) _validateUuid(uuid string) error {
+	if matched := _item_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// CloseReceptionResponseMultiError is an error wrapping multiple validation
+// errors returned by CloseReceptionResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CloseReceptionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CloseReceptionResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CloseReceptionResponseMultiError) AllErrors() []error { return m }
+
+// CloseReceptionResponseValidationError is the validation error returned by
+// CloseReceptionResponse.Validate if the designated constraints aren't met.
+type CloseReceptionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CloseReceptionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CloseReceptionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CloseReceptionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CloseReceptionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CloseReceptionResponseValidationError) ErrorName() string {
+	return "CloseReceptionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CloseReceptionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCloseReceptionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CloseReceptionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CloseReceptionResponseValidationError{}

@@ -7,8 +7,8 @@ import (
 	"github.com/webbsalad/pvz/internal/model"
 )
 
-func (s *Service) CreatePVZ(ctx context.Context, role model.Role, pvz model.PVZ) (model.PVZ, error) {
-	if role != model.MODERATOR {
+func (s *Service) CreatePVZ(ctx context.Context, userRole model.Role, pvz model.PVZ) (model.PVZ, error) {
+	if userRole != model.MODERATOR {
 		return model.PVZ{}, model.ErrWrongRole
 	}
 

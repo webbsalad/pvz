@@ -11,4 +11,5 @@ type Repository interface {
 	CreateReception(ctx context.Context, pvzID model.PVZID) (model.Reception, error)
 	AddProduct(ctx context.Context, product model.Product) (model.Product, error)
 	RemoveProduct(ctx context.Context, receptionID model.ReceptionID) error
+	UpdateReception(ctx context.Context, reception model.Reception) (model.Reception, error)
 }

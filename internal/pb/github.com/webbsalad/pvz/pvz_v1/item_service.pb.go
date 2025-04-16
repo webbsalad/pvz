@@ -336,6 +336,118 @@ func (*RemoveProductResponse) Descriptor() ([]byte, []int) {
 	return file_api_pvz_item_service_proto_rawDescGZIP(), []int{5}
 }
 
+type CloseReceptionRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PvzId         string                 `protobuf:"bytes,1,opt,name=pvzId,proto3" json:"pvzId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CloseReceptionRequest) Reset() {
+	*x = CloseReceptionRequest{}
+	mi := &file_api_pvz_item_service_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CloseReceptionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CloseReceptionRequest) ProtoMessage() {}
+
+func (x *CloseReceptionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_item_service_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CloseReceptionRequest.ProtoReflect.Descriptor instead.
+func (*CloseReceptionRequest) Descriptor() ([]byte, []int) {
+	return file_api_pvz_item_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *CloseReceptionRequest) GetPvzId() string {
+	if x != nil {
+		return x.PvzId
+	}
+	return ""
+}
+
+type CloseReceptionResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	DateTime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=dateTime,proto3" json:"dateTime,omitempty"`
+	PvzID         string                 `protobuf:"bytes,3,opt,name=pvzID,proto3" json:"pvzID,omitempty"`
+	Status        string                 `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CloseReceptionResponse) Reset() {
+	*x = CloseReceptionResponse{}
+	mi := &file_api_pvz_item_service_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CloseReceptionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CloseReceptionResponse) ProtoMessage() {}
+
+func (x *CloseReceptionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_item_service_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CloseReceptionResponse.ProtoReflect.Descriptor instead.
+func (*CloseReceptionResponse) Descriptor() ([]byte, []int) {
+	return file_api_pvz_item_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CloseReceptionResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *CloseReceptionResponse) GetDateTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DateTime
+	}
+	return nil
+}
+
+func (x *CloseReceptionResponse) GetPvzID() string {
+	if x != nil {
+		return x.PvzID
+	}
+	return ""
+}
+
+func (x *CloseReceptionResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 var File_api_pvz_item_service_proto protoreflect.FileDescriptor
 
 const file_api_pvz_item_service_proto_rawDesc = "" +
@@ -358,12 +470,20 @@ const file_api_pvz_item_service_proto_rawDesc = "" +
 	"\vreceptionId\x18\x04 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\vreceptionId\"6\n" +
 	"\x14RemoveProductRequest\x12\x1e\n" +
 	"\x05pvzId\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x05pvzId\"\x17\n" +
-	"\x15RemoveProductResponse2\xcf\x02\n" +
+	"\x15RemoveProductResponse\"7\n" +
+	"\x15CloseReceptionRequest\x12\x1e\n" +
+	"\x05pvzId\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x05pvzId\"\xa2\x01\n" +
+	"\x16CloseReceptionResponse\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x126\n" +
+	"\bdateTime\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bdateTime\x12\x1e\n" +
+	"\x05pvzID\x18\x03 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x05pvzID\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status2\xce\x03\n" +
 	"\vItemService\x12j\n" +
 	"\x0fCreateReception\x12\x1e.pvz.v1.CreateReceptionRequest\x1a\x1f.pvz.v1.CreateReceptionResponse\"\x16\x82\xd3\xe4\x93\x02\x10:\x01*\"\v/receptions\x12Y\n" +
 	"\n" +
 	"AddProduct\x12\x19.pvz.v1.AddProductRequest\x1a\x1a.pvz.v1.AddProductResponse\"\x14\x82\xd3\xe4\x93\x02\x0e:\x01*\"\t/products\x12y\n" +
-	"\rRemoveProduct\x12\x1c.pvz.v1.RemoveProductRequest\x1a\x1d.pvz.v1.RemoveProductResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /pvz/{pvzId}/delete_last_productB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
+	"\rRemoveProduct\x12\x1c.pvz.v1.RemoveProductRequest\x1a\x1d.pvz.v1.RemoveProductResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /pvz/{pvzId}/delete_last_product\x12}\n" +
+	"\x0eCloseReception\x12\x1d.pvz.v1.CloseReceptionRequest\x1a\x1e.pvz.v1.CloseReceptionResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/pvz/{pvzId}/close_last_receptionB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
 
 var (
 	file_api_pvz_item_service_proto_rawDescOnce sync.Once
@@ -377,7 +497,7 @@ func file_api_pvz_item_service_proto_rawDescGZIP() []byte {
 	return file_api_pvz_item_service_proto_rawDescData
 }
 
-var file_api_pvz_item_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_api_pvz_item_service_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_api_pvz_item_service_proto_goTypes = []any{
 	(*CreateReceptionRequest)(nil),  // 0: pvz.v1.CreateReceptionRequest
 	(*CreateReceptionResponse)(nil), // 1: pvz.v1.CreateReceptionResponse
@@ -385,22 +505,27 @@ var file_api_pvz_item_service_proto_goTypes = []any{
 	(*AddProductResponse)(nil),      // 3: pvz.v1.AddProductResponse
 	(*RemoveProductRequest)(nil),    // 4: pvz.v1.RemoveProductRequest
 	(*RemoveProductResponse)(nil),   // 5: pvz.v1.RemoveProductResponse
-	(*timestamppb.Timestamp)(nil),   // 6: google.protobuf.Timestamp
+	(*CloseReceptionRequest)(nil),   // 6: pvz.v1.CloseReceptionRequest
+	(*CloseReceptionResponse)(nil),  // 7: pvz.v1.CloseReceptionResponse
+	(*timestamppb.Timestamp)(nil),   // 8: google.protobuf.Timestamp
 }
 var file_api_pvz_item_service_proto_depIdxs = []int32{
-	6, // 0: pvz.v1.CreateReceptionResponse.dateTime:type_name -> google.protobuf.Timestamp
-	6, // 1: pvz.v1.AddProductResponse.dateTime:type_name -> google.protobuf.Timestamp
-	0, // 2: pvz.v1.ItemService.CreateReception:input_type -> pvz.v1.CreateReceptionRequest
-	2, // 3: pvz.v1.ItemService.AddProduct:input_type -> pvz.v1.AddProductRequest
-	4, // 4: pvz.v1.ItemService.RemoveProduct:input_type -> pvz.v1.RemoveProductRequest
-	1, // 5: pvz.v1.ItemService.CreateReception:output_type -> pvz.v1.CreateReceptionResponse
-	3, // 6: pvz.v1.ItemService.AddProduct:output_type -> pvz.v1.AddProductResponse
-	5, // 7: pvz.v1.ItemService.RemoveProduct:output_type -> pvz.v1.RemoveProductResponse
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	8, // 0: pvz.v1.CreateReceptionResponse.dateTime:type_name -> google.protobuf.Timestamp
+	8, // 1: pvz.v1.AddProductResponse.dateTime:type_name -> google.protobuf.Timestamp
+	8, // 2: pvz.v1.CloseReceptionResponse.dateTime:type_name -> google.protobuf.Timestamp
+	0, // 3: pvz.v1.ItemService.CreateReception:input_type -> pvz.v1.CreateReceptionRequest
+	2, // 4: pvz.v1.ItemService.AddProduct:input_type -> pvz.v1.AddProductRequest
+	4, // 5: pvz.v1.ItemService.RemoveProduct:input_type -> pvz.v1.RemoveProductRequest
+	6, // 6: pvz.v1.ItemService.CloseReception:input_type -> pvz.v1.CloseReceptionRequest
+	1, // 7: pvz.v1.ItemService.CreateReception:output_type -> pvz.v1.CreateReceptionResponse
+	3, // 8: pvz.v1.ItemService.AddProduct:output_type -> pvz.v1.AddProductResponse
+	5, // 9: pvz.v1.ItemService.RemoveProduct:output_type -> pvz.v1.RemoveProductResponse
+	7, // 10: pvz.v1.ItemService.CloseReception:output_type -> pvz.v1.CloseReceptionResponse
+	7, // [7:11] is the sub-list for method output_type
+	3, // [3:7] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_api_pvz_item_service_proto_init() }
@@ -414,7 +539,7 @@ func file_api_pvz_item_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_pvz_item_service_proto_rawDesc), len(file_api_pvz_item_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

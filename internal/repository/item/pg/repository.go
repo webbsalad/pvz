@@ -171,3 +171,38 @@ func (r *Repository) RemoveProduct(ctx context.Context, receptionID model.Recept
 
 	return nil
 }
+
+func (r *Repository) UpdateReception(ctx context.Context, reception model.Reception) (model.Reception, error) {
+	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+	query := psql.
+		Update("reception").
+		Set("pvz_id", reception.PVZID.String()).
+		Set("status", reception.Status.String()).
+		Set("date_time", reception.DateTime).
+		Where(
+			sq.Eq{"id": reception.ID.String()},
+		).
+		Suffix("RETURNING id, pvz_id, status, date_time")
+
+	q, args, err := query.ToSql()
+	if err != nil {
+		return model.Reception{}, fmt.Errorf("build update query: %w", err)
+	}
+
+	var updatedReception Reception
+	err = r.db.QueryRowContext(ctx, q, args...).
+		Scan(&updatedReception.ID, &updatedReception.PVZID, &updatedReception.Status, &updatedReception.DateTime)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return model.Reception{}, model.ErrReceptionNotFound
+		}
+		return model.Reception{}, fmt.Errorf("execute update: %w", err)
+	}
+
+	newReception, err := toReceptionFromDB(updatedReception)
+	if err != nil {
+		return model.Reception{}, fmt.Errorf("convert updated reception to model: %w", err)
+	}
+
+	return newReception, nil
+}

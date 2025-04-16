@@ -29,6 +29,13 @@ service ItemService {
             body: "*"
         };
     };
+
+    rpc CloseReception(CloseReceptionRequest) returns (CloseReceptionResponse) {
+        option (google.api.http) = {
+            post: "/pvz/{pvzId}/close_last_reception",
+            body: "*"
+        };
+    };
 }
 
 message CreateReceptionRequest {
@@ -58,6 +65,15 @@ message RemoveProductRequest {
     string pvzId = 1 [(validate.rules).string.uuid = true];
 }
 
-message RemoveProductResponse {
-    
+message RemoveProductResponse {}
+
+message CloseReceptionRequest {
+    string pvzId = 1 [(validate.rules).string.uuid = true];
+}
+
+message CloseReceptionResponse {
+    string id = 1 [(validate.rules).string.uuid = true];
+    google.protobuf.Timestamp dateTime = 2;
+    string pvzID = 3 [(validate.rules).string.uuid = true];
+    string status = 4;
 }

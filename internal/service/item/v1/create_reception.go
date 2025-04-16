@@ -8,8 +8,8 @@ import (
 	"github.com/webbsalad/pvz/internal/model"
 )
 
-func (s *Service) CreateReception(ctx context.Context, role model.Role, pvzID model.PVZID) (model.Reception, error) {
-	if role != model.EMPLOYEE {
+func (s *Service) CreateReception(ctx context.Context, userRole model.Role, pvzID model.PVZID) (model.Reception, error) {
+	if userRole != model.EMPLOYEE {
 		return model.Reception{}, model.ErrWrongRole
 	}
 
