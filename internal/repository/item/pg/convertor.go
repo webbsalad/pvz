@@ -46,3 +46,25 @@ func toReceptionFromDB(in Reception) (model.Reception, error) {
 
 	return reception, nil
 }
+
+func toProductFromDB(in Product) (model.Product, error) {
+	productID, err := model.NewProductID(in.ID)
+	if err != nil {
+		return model.Product{}, fmt.Errorf("convert str product id to model: %w", err)
+	}
+
+	receptionID, err := model.NewReceptionID(in.ReceptionID)
+	if err != nil {
+		return model.Product{}, fmt.Errorf("convert str reception id to model: %w", err)
+	}
+
+	product := model.Product{
+		ID:          productID,
+		ReceptionID: receptionID,
+		Type:        in.Type,
+
+		DateTime: in.DateTime,
+	}
+
+	return product, nil
+}

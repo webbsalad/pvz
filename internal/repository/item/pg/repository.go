@@ -89,3 +89,32 @@ func (r *Repository) CreateReception(ctx context.Context, pvzID model.PVZID) (mo
 
 	return newStoredReception, nil
 }
+
+func (r *Repository) AddProduct(ctx context.Context, product model.Product) (model.Product, error) {
+	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+	query := psql.
+		Insert("product").
+		Columns("reception_id", "type", "date_time").
+		Values(product.ReceptionID.String(), product.Type, time.Now()).
+		Suffix("RETURNING id, reception_id, type, date_time")
+
+	q, args, err := query.ToSql()
+	if err != nil {
+		return model.Product{}, fmt.Errorf("build sql: %w", err)
+	}
+
+	var storedProduct Product
+	err = r.db.QueryRowContext(ctx, q, args...).
+		Scan(&storedProduct.ID, &storedProduct.ReceptionID, &storedProduct.Type, &storedProduct.DateTime)
+
+	if err != nil {
+		return model.Product{}, fmt.Errorf("insert product: %w", err)
+	}
+
+	newStoredProduct, err := toProductFromDB(storedProduct)
+	if err != nil {
+		return model.Product{}, fmt.Errorf("convert stored user to model: %w", err)
+	}
+
+	return newStoredProduct, nil
+}

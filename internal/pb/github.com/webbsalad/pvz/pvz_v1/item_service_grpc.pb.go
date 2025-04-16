@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	ItemService_CreateReception_FullMethodName = "/pvz.v1.ItemService/CreateReception"
+	ItemService_AddProduct_FullMethodName      = "/pvz.v1.ItemService/AddProduct"
 )
 
 // ItemServiceClient is the client API for ItemService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ItemServiceClient interface {
 	CreateReception(ctx context.Context, in *CreateReceptionRequest, opts ...grpc.CallOption) (*CreateReceptionResponse, error)
+	AddProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error)
 }
 
 type itemServiceClient struct {
@@ -47,11 +49,22 @@ func (c *itemServiceClient) CreateReception(ctx context.Context, in *CreateRecep
 	return out, nil
 }
 
+func (c *itemServiceClient) AddProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddProductResponse)
+	err := c.cc.Invoke(ctx, ItemService_AddProduct_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ItemServiceServer is the server API for ItemService service.
 // All implementations must embed UnimplementedItemServiceServer
 // for forward compatibility.
 type ItemServiceServer interface {
 	CreateReception(context.Context, *CreateReceptionRequest) (*CreateReceptionResponse, error)
+	AddProduct(context.Context, *AddProductRequest) (*AddProductResponse, error)
 	mustEmbedUnimplementedItemServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedItemServiceServer struct{}
 
 func (UnimplementedItemServiceServer) CreateReception(context.Context, *CreateReceptionRequest) (*CreateReceptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateReception not implemented")
+}
+func (UnimplementedItemServiceServer) AddProduct(context.Context, *AddProductRequest) (*AddProductResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddProduct not implemented")
 }
 func (UnimplementedItemServiceServer) mustEmbedUnimplementedItemServiceServer() {}
 func (UnimplementedItemServiceServer) testEmbeddedByValue()                     {}
@@ -104,6 +120,24 @@ func _ItemService_CreateReception_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ItemService_AddProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddProductRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ItemServiceServer).AddProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ItemService_AddProduct_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ItemServiceServer).AddProduct(ctx, req.(*AddProductRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ItemService_ServiceDesc is the grpc.ServiceDesc for ItemService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var ItemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateReception",
 			Handler:    _ItemService_CreateReception_Handler,
+		},
+		{
+			MethodName: "AddProduct",
+			Handler:    _ItemService_AddProduct_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

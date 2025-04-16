@@ -9,3 +9,11 @@ type Reception struct {
 
 	DateTime time.Time `db:"date_time"`
 }
+
+type Product struct {
+	ID          string `db:"id"`
+	ReceptionID string `db:"reception_id"`
+	Type        string `db:"type"`
+
+	DateTime time.Time `db:"date_time"`
+}
