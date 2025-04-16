@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package pvz.v1;
+
+option go_package = "github.com/webbsalad/pvz/pvz_v1;pvz_v1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+service ItemService {
+    rpc CreateReception(CreateReceptionRequest) returns (CreateReceptionResponse) {
+        option (google.api.http) = {
+            post: "/receptions",
+            body: "*"
+        };
+    };
+}
+
+message CreateReceptionRequest {
+    string pvzId = 1 [(validate.rules).string.uuid = true];
+}
+
+message CreateReceptionResponse {
+    string id = 1 [(validate.rules).string.uuid = true];
+    google.protobuf.Timestamp dateTime = 2;
+    string pvzID = 3 [(validate.rules).string.uuid = true];
+    string status = 4;
+}
