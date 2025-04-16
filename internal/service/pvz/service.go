@@ -7,5 +7,5 @@ import (
 )
 
 type Service interface {
-	CreatePVZ(ctx context.Context, token string, pvz model.PVZ) (model.PVZ, error)
+	CreatePVZ(ctx context.Context, role model.Role, pvz model.PVZ) (model.PVZ, error)
 }

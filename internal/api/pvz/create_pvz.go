@@ -22,12 +22,12 @@ func (i *Implementation) CreatePVZ(ctx context.Context, req *desc.CreatePVZReque
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
-	token, err := metadata.GetBarerToken(ctx)
+	role, err := metadata.GetRole(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
-	pvz, err := i.pvzService.CreatePVZ(ctx, token, model.PVZ{
+	pvz, err := i.pvzService.CreatePVZ(ctx, role, model.PVZ{
 		ID:               pvzID,
 		City:             req.GetCity(),
 		RegistrationDate: req.GetRegistrationDate().AsTime(),
