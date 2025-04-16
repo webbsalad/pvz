@@ -66,6 +66,15 @@ func gatewayOption() fx.Option {
 			log.Fatalf("failed register gateway: %v", err)
 		}
 
+		if err := pb.RegisterItemServiceHandlerFromEndpoint(
+			context.Background(),
+			mux,
+			fmt.Sprintf("localhost:%d", *grpcPort),
+			opts,
+		); err != nil {
+			log.Fatalf("failed register gateway: %v", err)
+		}
+
 		handler := newBearerAuthHandler(newCORSHandler(mux))
 
 		srv := &http.Server{
