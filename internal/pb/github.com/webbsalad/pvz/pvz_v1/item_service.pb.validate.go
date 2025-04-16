@@ -613,3 +613,227 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = AddProductResponseValidationError{}
+
+// Validate checks the field values on RemoveProductRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RemoveProductRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoveProductRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RemoveProductRequestMultiError, or nil if none found.
+func (m *RemoveProductRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoveProductRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetPvzId()); err != nil {
+		err = RemoveProductRequestValidationError{
+			field:  "PvzId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return RemoveProductRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *RemoveProductRequest) _validateUuid(uuid string) error {
+	if matched := _item_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// RemoveProductRequestMultiError is an error wrapping multiple validation
+// errors returned by RemoveProductRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RemoveProductRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoveProductRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoveProductRequestMultiError) AllErrors() []error { return m }
+
+// RemoveProductRequestValidationError is the validation error returned by
+// RemoveProductRequest.Validate if the designated constraints aren't met.
+type RemoveProductRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemoveProductRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemoveProductRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemoveProductRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemoveProductRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemoveProductRequestValidationError) ErrorName() string {
+	return "RemoveProductRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RemoveProductRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemoveProductRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemoveProductRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemoveProductRequestValidationError{}
+
+// Validate checks the field values on RemoveProductResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RemoveProductResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on RemoveProductResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// RemoveProductResponseMultiError, or nil if none found.
+func (m *RemoveProductResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *RemoveProductResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return RemoveProductResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RemoveProductResponseMultiError is an error wrapping multiple validation
+// errors returned by RemoveProductResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RemoveProductResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RemoveProductResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RemoveProductResponseMultiError) AllErrors() []error { return m }
+
+// RemoveProductResponseValidationError is the validation error returned by
+// RemoveProductResponse.Validate if the designated constraints aren't met.
+type RemoveProductResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RemoveProductResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RemoveProductResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RemoveProductResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RemoveProductResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RemoveProductResponseValidationError) ErrorName() string {
+	return "RemoveProductResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RemoveProductResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRemoveProductResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RemoveProductResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RemoveProductResponseValidationError{}
