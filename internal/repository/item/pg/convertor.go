@@ -26,7 +26,7 @@ func toReceptionFromDB(in Reception) (model.Reception, error) {
 		return model.Reception{}, fmt.Errorf("convert str reception id to model: %w", err)
 	}
 
-	pvzID, err := model.NewPVZID(in.ID)
+	pvzID, err := model.NewPVZID(in.PVZID)
 	if err != nil {
 		return model.Reception{}, fmt.Errorf("convert str to pvz id: %w", err)
 	}

@@ -1,4 +1,4 @@
-package pvz
+package reception
 
 import (
 	"context"
@@ -12,14 +12,9 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (i *Implementation) CreatePVZ(ctx context.Context, req *desc.CreatePVZRequest) (*desc.CreatePVZResponse, error) {
+func (i *Implementation) CloseReception(ctx context.Context, req *desc.CloseReceptionRequest) (*desc.CloseReceptionResponse, error) {
 	if err := req.Validate(); err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, "invalid request: %v", err)
-	}
-
-	pvzID, err := model.NewPVZID(req.GetId())
-	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
 	userRole, err := metadata.GetRole(ctx)
@@ -27,18 +22,20 @@ func (i *Implementation) CreatePVZ(ctx context.Context, req *desc.CreatePVZReque
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
-	pvz, err := i.pvzService.CreatePVZ(ctx, userRole, model.PVZ{
-		ID:               pvzID,
-		City:             req.GetCity(),
-		RegistrationDate: req.GetRegistrationDate().AsTime(),
-	})
+	pvzID, err := model.NewPVZID(req.GetPvzId())
+	if err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+	}
+
+	reception, err := i.itemService.CloseReception(ctx, userRole, pvzID)
 	if err != nil {
 		return nil, convertor.ConvertError(err)
 	}
 
-	return &desc.CreatePVZResponse{
-		Id:               pvz.ID.String(),
-		City:             pvz.City,
-		RegistrationDate: timestamppb.New(pvz.RegistrationDate),
+	return &desc.CloseReceptionResponse{
+		Id:       reception.ID.String(),
+		DateTime: timestamppb.New(reception.DateTime),
+		PvzID:    reception.PVZID.String(),
+		Status:   reception.Status.String(),
 	}, nil
 }

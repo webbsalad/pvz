@@ -17,7 +17,7 @@ func (i *Implementation) AddProduct(ctx context.Context, req *desc.AddProductReq
 		return nil, status.Errorf(codes.InvalidArgument, "invalid request: %v", err)
 	}
 
-	role, err := metadata.GetRole(ctx)
+	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
@@ -27,7 +27,7 @@ func (i *Implementation) AddProduct(ctx context.Context, req *desc.AddProductReq
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
-	product, err := i.itemService.AddProduct(ctx, role, pvzID, req.GetType())
+	product, err := i.itemService.AddProduct(ctx, userRole, pvzID, req.GetType())
 	if err != nil {
 		return nil, convertor.ConvertError(err)
 	}

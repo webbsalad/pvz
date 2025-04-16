@@ -17,7 +17,7 @@ func (i *Implementation) CreateReception(ctx context.Context, req *desc.CreateRe
 		return nil, status.Errorf(codes.InvalidArgument, "invalid request: %v", err)
 	}
 
-	role, err := metadata.GetRole(ctx)
+	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
@@ -27,7 +27,7 @@ func (i *Implementation) CreateReception(ctx context.Context, req *desc.CreateRe
 		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
 	}
 
-	reception, err := i.itemService.CreateReception(ctx, role, pvzID)
+	reception, err := i.itemService.CreateReception(ctx, userRole, pvzID)
 	if err != nil {
 		return nil, convertor.ConvertError(err)
 	}

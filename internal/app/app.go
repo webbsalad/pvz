@@ -14,7 +14,6 @@ import (
 	pvz_service "github.com/webbsalad/pvz/internal/service/pvz/v1"
 
 	item_repository "github.com/webbsalad/pvz/internal/repository/item/pg"
-	login_repository "github.com/webbsalad/pvz/internal/repository/login/pg"
 	pvz_repository "github.com/webbsalad/pvz/internal/repository/pvz/pg"
 	user_repository "github.com/webbsalad/pvz/internal/repository/user/pg"
 )
@@ -46,7 +45,6 @@ func servicesOption() fx.Option {
 			item_service.NewService,
 
 			user_repository.NewRepository,
-			login_repository.NewRepository,
 			pvz_repository.NewRepository,
 			item_repository.NewRepository,
 		),

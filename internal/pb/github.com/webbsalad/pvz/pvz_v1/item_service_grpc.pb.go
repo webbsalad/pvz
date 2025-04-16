@@ -22,6 +22,7 @@ const (
 	ItemService_CreateReception_FullMethodName = "/pvz.v1.ItemService/CreateReception"
 	ItemService_AddProduct_FullMethodName      = "/pvz.v1.ItemService/AddProduct"
 	ItemService_RemoveProduct_FullMethodName   = "/pvz.v1.ItemService/RemoveProduct"
+	ItemService_CloseReception_FullMethodName  = "/pvz.v1.ItemService/CloseReception"
 )
 
 // ItemServiceClient is the client API for ItemService service.
@@ -31,6 +32,7 @@ type ItemServiceClient interface {
 	CreateReception(ctx context.Context, in *CreateReceptionRequest, opts ...grpc.CallOption) (*CreateReceptionResponse, error)
 	AddProduct(ctx context.Context, in *AddProductRequest, opts ...grpc.CallOption) (*AddProductResponse, error)
 	RemoveProduct(ctx context.Context, in *RemoveProductRequest, opts ...grpc.CallOption) (*RemoveProductResponse, error)
+	CloseReception(ctx context.Context, in *CloseReceptionRequest, opts ...grpc.CallOption) (*CloseReceptionResponse, error)
 }
 
 type itemServiceClient struct {
@@ -71,6 +73,16 @@ func (c *itemServiceClient) RemoveProduct(ctx context.Context, in *RemoveProduct
 	return out, nil
 }
 
+func (c *itemServiceClient) CloseReception(ctx context.Context, in *CloseReceptionRequest, opts ...grpc.CallOption) (*CloseReceptionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CloseReceptionResponse)
+	err := c.cc.Invoke(ctx, ItemService_CloseReception_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ItemServiceServer is the server API for ItemService service.
 // All implementations must embed UnimplementedItemServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type ItemServiceServer interface {
 	CreateReception(context.Context, *CreateReceptionRequest) (*CreateReceptionResponse, error)
 	AddProduct(context.Context, *AddProductRequest) (*AddProductResponse, error)
 	RemoveProduct(context.Context, *RemoveProductRequest) (*RemoveProductResponse, error)
+	CloseReception(context.Context, *CloseReceptionRequest) (*CloseReceptionResponse, error)
 	mustEmbedUnimplementedItemServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedItemServiceServer) AddProduct(context.Context, *AddProductReq
 }
 func (UnimplementedItemServiceServer) RemoveProduct(context.Context, *RemoveProductRequest) (*RemoveProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveProduct not implemented")
+}
+func (UnimplementedItemServiceServer) CloseReception(context.Context, *CloseReceptionRequest) (*CloseReceptionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CloseReception not implemented")
 }
 func (UnimplementedItemServiceServer) mustEmbedUnimplementedItemServiceServer() {}
 func (UnimplementedItemServiceServer) testEmbeddedByValue()                     {}
@@ -172,6 +188,24 @@ func _ItemService_RemoveProduct_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ItemService_CloseReception_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CloseReceptionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ItemServiceServer).CloseReception(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ItemService_CloseReception_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ItemServiceServer).CloseReception(ctx, req.(*CloseReceptionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ItemService_ServiceDesc is the grpc.ServiceDesc for ItemService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var ItemService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveProduct",
 			Handler:    _ItemService_RemoveProduct_Handler,
+		},
+		{
+			MethodName: "CloseReception",
+			Handler:    _ItemService_CloseReception_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
