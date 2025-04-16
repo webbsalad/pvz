@@ -15,6 +15,13 @@ service ItemService {
             body: "*"
         };
     };
+
+    rpc AddProduct(AddProductRequest) returns (AddProductResponse) {
+        option (google.api.http) = {
+            post: "/products",
+            body: "*"
+        };
+    };
 }
 
 message CreateReceptionRequest {
@@ -26,4 +33,16 @@ message CreateReceptionResponse {
     google.protobuf.Timestamp dateTime = 2;
     string pvzID = 3 [(validate.rules).string.uuid = true];
     string status = 4;
+}
+
+message AddProductRequest {
+    string type = 1;
+    string pvzId = 2 [(validate.rules).string.uuid = true];
+}
+
+message AddProductResponse {
+    string id = 1 [(validate.rules).string.uuid = true];
+    google.protobuf.Timestamp dateTime = 2;
+    string type = 3;
+    string receptionId = 4 [(validate.rules).string.uuid = true];
 }
