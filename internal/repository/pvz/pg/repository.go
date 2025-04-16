@@ -49,3 +49,41 @@ func (r *Repository) CreatePVZ(ctx context.Context, pvz model.PVZ) (model.PVZ, e
 
 	return newPVZ, nil
 }
+
+func (r *Repository) GetPVZsByParams(ctx context.Context, pvz model.PVZ) ([]model.PVZ, error) {
+	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+	whereClause, err := buildPVZWhere(pvz)
+	if err != nil {
+		return nil, fmt.Errorf("build where clause: %w", err)
+	}
+
+	query := psql.
+		Select("*").
+		From("pvz")
+
+	if len(whereClause) > 0 {
+		query = query.Where(whereClause)
+	}
+
+	q, args, err := query.ToSql()
+	if err != nil {
+		return nil, fmt.Errorf("build sql: %w", err)
+	}
+
+	var storedPVZs []PVZ
+	if err := r.db.SelectContext(ctx, &storedPVZs, q, args...); err != nil {
+		return nil, fmt.Errorf("select from pvz: %w", err)
+	}
+
+	if len(storedPVZs) == 0 {
+		return nil, model.ErrPVZNotFound
+	}
+
+	pvzs, err := toPVZsFromDB(storedPVZs)
+	if err != nil {
+		return nil, fmt.Errorf("convert stored receptions to model: %w", err)
+	}
+
+	return pvzs, nil
+
+}

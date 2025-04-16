@@ -6,6 +6,20 @@ import (
 	"github.com/webbsalad/pvz/internal/model"
 )
 
+func toPVZsFromDB(in []PVZ) ([]model.PVZ, error) {
+	pvzs := make([]model.PVZ, len(in))
+	for i, dbPVZ := range in {
+		pvz, err := toPVZFromDB(dbPVZ)
+		if err != nil {
+			return nil, fmt.Errorf("convert db pvz to model: %w", err)
+		}
+
+		pvzs[i] = pvz
+	}
+
+	return pvzs, nil
+}
+
 func toPVZFromDB(in PVZ) (model.PVZ, error) {
 	pvzID, err := model.NewPVZID(in.ID)
 	if err != nil {

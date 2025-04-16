@@ -8,4 +8,5 @@ import (
 
 type Service interface {
 	CreatePVZ(ctx context.Context, role model.Role, pvz model.PVZ) (model.PVZ, error)
+	GetPVZList(ctx context.Context) ([]model.PVZ, error)
 }
