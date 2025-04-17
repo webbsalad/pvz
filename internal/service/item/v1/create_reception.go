@@ -14,7 +14,7 @@ func (s *Service) CreateReception(ctx context.Context, userRole model.Role, pvzI
 	}
 
 	status := model.IN_PROGRESS
-	_, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+	_, err := s.itemRepository.GetReceptionsByParams(ctx, model.ReceptionFilter{
 		PVZID:  &pvzID,
 		Status: &status,
 	})
@@ -26,7 +26,7 @@ func (s *Service) CreateReception(ctx context.Context, userRole model.Role, pvzI
 		return model.Reception{}, fmt.Errorf("reception with status in_progress now exist")
 	}
 
-	reception, err := s.itemReporitory.CreateReception(ctx, pvzID)
+	reception, err := s.itemRepository.CreateReception(ctx, pvzID)
 	if err != nil {
 		return model.Reception{}, fmt.Errorf("create reception: %w", err)
 	}

@@ -7,16 +7,16 @@ import (
 )
 
 type Service struct {
-	itemReporitory item.Repository
+	itemRepository item.Repository
 
 	config config.Config
 }
 
 func NewService(
-	itemReporitory item.Repository,
+	itemRepository item.Repository,
 	config config.Config) item_service.Service {
 	return &Service{
-		itemReporitory: itemReporitory,
+		itemRepository: itemRepository,
 		config:         config,
 	}
 }

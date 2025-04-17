@@ -13,7 +13,7 @@ func (s *Service) RemoveProduct(ctx context.Context, userRole model.Role, pvzID 
 	}
 
 	status := model.IN_PROGRESS
-	reception, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+	reception, err := s.itemRepository.GetReceptionsByParams(ctx, model.ReceptionFilter{
 		PVZID:  &pvzID,
 		Status: &status,
 	})
@@ -21,7 +21,7 @@ func (s *Service) RemoveProduct(ctx context.Context, userRole model.Role, pvzID 
 		return fmt.Errorf("get reception: %w", err)
 	}
 
-	if err := s.itemReporitory.RemoveProduct(ctx, reception[0].ID); err != nil {
+	if err := s.itemRepository.RemoveProduct(ctx, reception[0].ID); err != nil {
 		return fmt.Errorf("remove product: %w", err)
 	}
 
