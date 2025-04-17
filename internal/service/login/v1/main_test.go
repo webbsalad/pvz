@@ -61,3 +61,7 @@ func (hm hashMatcher) Matches(x interface{}) bool {
 	err := hash.CheckPassword(hashedPassword, hm.password)
 	return err == nil
 }
+
+func (hm hashMatcher) String() string {
+	return "matches hashed password"
+}
