@@ -8,6 +8,13 @@ import (
 func buildPVZWhere(f model.PVZFilter) sq.And {
 	where := sq.And{}
 
+	strPVZIDs := make([]string, len(f.IDs))
+	for i, id := range f.IDs {
+		strPVZIDs[i] = id.String()
+	}
+	if len(strPVZIDs) > 0 {
+		where = append(where, sq.Eq{"id": strPVZIDs})
+	}
 	if f.City != nil {
 		where = append(where, sq.Eq{"pvz_id": f.City})
 	}

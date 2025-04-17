@@ -15,10 +15,10 @@ func buildReceptionWhere(f model.ReceptionFilter) sq.And {
 		where = append(where, sq.Eq{"status": f.Status.String()})
 	}
 	if f.From != nil {
-		where = append(where, sq.GtOrEq{"created_at": *f.From})
+		where = append(where, sq.GtOrEq{"date_time": *f.From})
 	}
 	if f.To != nil {
-		where = append(where, sq.LtOrEq{"created_at": *f.To})
+		where = append(where, sq.LtOrEq{"date_time": *f.To})
 	}
 
 	return where
@@ -34,10 +34,10 @@ func buildProductWhere(f model.ProductFilter) sq.And {
 		where = append(where, sq.Eq{"type": f.Type})
 	}
 	if f.From != nil {
-		where = append(where, sq.GtOrEq{"created_at": *f.From})
+		where = append(where, sq.GtOrEq{"date_time": *f.From})
 	}
 	if f.To != nil {
-		where = append(where, sq.LtOrEq{"created_at": *f.To})
+		where = append(where, sq.LtOrEq{"date_time": *f.To})
 	}
 
 	return where

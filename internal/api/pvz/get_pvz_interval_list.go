@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/webbsalad/pvz/internal/convertor"
-	"github.com/webbsalad/pvz/internal/model"
 	desc "github.com/webbsalad/pvz/internal/pb/github.com/webbsalad/pvz/pvz_v1"
 	"github.com/webbsalad/pvz/internal/utils/metadata"
 	"google.golang.org/grpc/codes"
@@ -46,12 +45,7 @@ func (i *Implementation) GetPVZIntervalList(ctx context.Context, req *desc.GetPV
 		limit = &l
 	}
 
-	pvzs, err := i.pvzService.GetPVZIntervalList(ctx, userRole, model.PVZFilter{
-		Page:  page,
-		Limit: limit,
-		From:  from,
-		To:    to,
-	})
+	pvzs, err := i.pvzService.GetPVZIntervalList(ctx, userRole, page, limit, from, to)
 	if err != nil {
 		return nil, convertor.ConvertError(err)
 	}

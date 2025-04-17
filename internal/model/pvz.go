@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type PVZ struct {
 	ID   PVZID
@@ -10,6 +12,7 @@ type PVZ struct {
 }
 
 type PVZFilter struct {
+	IDs  []PVZID
 	City *string
 
 	Page  *int32
