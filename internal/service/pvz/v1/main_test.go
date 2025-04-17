@@ -10,7 +10,6 @@ import (
 	"github.com/webbsalad/pvz/internal/model"
 	mock_item_repository "github.com/webbsalad/pvz/internal/repository/item/mock"
 	mock_pvz_repository "github.com/webbsalad/pvz/internal/repository/pvz/mock"
-	"github.com/webbsalad/pvz/internal/utils/hash"
 )
 
 var (
@@ -72,22 +71,4 @@ func getTestDeps(t *testing.T) *serviceTestDeps {
 		pvzRepository:  pvzRepository,
 		itemRepository: itemRepository,
 	}
-}
-
-type hashMatcher struct {
-	password string
-}
-
-func (hm hashMatcher) Matches(x interface{}) bool {
-	hashedPassword, ok := x.(string)
-	if !ok {
-		return false
-	}
-
-	err := hash.CheckPassword(hashedPassword, hm.password)
-	return err == nil
-}
-
-func (hm hashMatcher) String() string {
-	return "matches hashed password"
 }
