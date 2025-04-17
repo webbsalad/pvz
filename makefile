@@ -26,3 +26,8 @@ proto-deps:
 	git clone https://github.com/bufbuild/protoc-gen-validate.git ./vendor.protogen/protoc-gen-validate
 	mv ./vendor.protogen/protoc-gen-validate/validate/ ./vendor.protogen
 	rm -rf ./vendor.protogen/protoc-gen-validate/
+
+mocks:
+	mockgen -source ./internal/repository/item/repository.go -destination ./internal/repository/item/mock/repository.go -package mock_item
+	mockgen -source ./internal/repository/user/repository.go -destination ./internal/repository/user/mock/repository.go -package mock_user
+	mockgen -source ./internal/repository/pvz/repository.go -destination ./internal/repository/pvz/mock/repository.go -package mock_pvz

@@ -21,7 +21,7 @@ func (s *Service) GetPVZIntervalList(ctx context.Context, userRole model.Role, p
 	recs, err := s.itemRepository.GetReceptionsByParams(ctx, receptionFilter)
 	if err != nil {
 		if errors.Is(err, model.ErrReceptionNotFound) {
-			return nil, model.ErrNotFound
+			return nil, model.ErrReceptionNotFound
 		}
 		return nil, fmt.Errorf("get receptions: %w", err)
 	}
@@ -30,7 +30,7 @@ func (s *Service) GetPVZIntervalList(ctx context.Context, userRole model.Role, p
 	for _, r := range recs {
 		pvzIDSet[r.PVZID] = struct{}{}
 	}
-	pvzIDs := make([]model.PVZID, len(pvzIDSet))
+	pvzIDs := make([]model.PVZID, 0, len(pvzIDSet))
 	for id := range pvzIDSet {
 		pvzIDs = append(pvzIDs, id)
 	}
@@ -43,26 +43,25 @@ func (s *Service) GetPVZIntervalList(ctx context.Context, userRole model.Role, p
 	pvzs, err := s.pvzRepository.GetPVZsByParams(ctx, pvzFilter)
 	if err != nil {
 		if errors.Is(err, model.ErrPVZNotFound) {
-			return nil, model.ErrNotFound
+			return nil, model.ErrPVZNotFound
 		}
 		return nil, fmt.Errorf("get pvzs: %w", err)
 	}
 
-	prods, err := s.itemRepository.GetProductssByParams(ctx, model.ProductFilter{})
-	if err != nil && !errors.Is(err, model.ErrProductNotFound) {
-		return nil, fmt.Errorf("get products: %w", err)
-	}
-
-	prodsByRec := make(map[model.ReceptionID][]model.Product, len(recs))
-	for _, p := range prods {
-		prodsByRec[p.ReceptionID] = append(prodsByRec[p.ReceptionID], p)
-	}
-
 	recsWithProds := make([]model.ReceptionWithProducts, len(recs))
 	for i, r := range recs {
+		prods, err := s.itemRepository.GetProductssByParams(
+			ctx,
+			model.ProductFilter{ReceptionID: &r.ID},
+		)
+
+		if err != nil && !errors.Is(err, model.ErrProductNotFound) {
+			return nil, fmt.Errorf("get products for reception %s: %w", r.ID, err)
+		}
+
 		recsWithProds[i] = model.ReceptionWithProducts{
 			Reception: r,
-			Products:  prodsByRec[r.ID],
+			Products:  prods,
 		}
 	}
 

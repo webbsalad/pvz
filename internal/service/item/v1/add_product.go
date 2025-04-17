@@ -13,7 +13,7 @@ func (s *Service) AddProduct(ctx context.Context, userRole model.Role, pvzID mod
 	}
 
 	status := model.IN_PROGRESS
-	receptions, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+	receptions, err := s.itemRepository.GetReceptionsByParams(ctx, model.ReceptionFilter{
 		PVZID:  &pvzID,
 		Status: &status,
 	})
@@ -21,7 +21,7 @@ func (s *Service) AddProduct(ctx context.Context, userRole model.Role, pvzID mod
 		return model.Product{}, fmt.Errorf("get in progress reception: %w", err)
 	}
 
-	product, err := s.itemReporitory.AddProduct(ctx, model.Product{
+	product, err := s.itemRepository.AddProduct(ctx, model.Product{
 		ReceptionID: receptions[0].ID,
 		Type:        productType,
 	})

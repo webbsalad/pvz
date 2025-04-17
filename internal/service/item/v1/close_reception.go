@@ -13,7 +13,7 @@ func (s *Service) CloseReception(ctx context.Context, userRole model.Role, pvzID
 	}
 
 	status := model.IN_PROGRESS
-	reception, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+	reception, err := s.itemRepository.GetReceptionsByParams(ctx, model.ReceptionFilter{
 		PVZID:  &pvzID,
 		Status: &status,
 	})
@@ -24,7 +24,7 @@ func (s *Service) CloseReception(ctx context.Context, userRole model.Role, pvzID
 	newReception := reception[0]
 	newReception.Status = model.CLOSE
 
-	updatedReception, err := s.itemReporitory.UpdateReception(ctx, newReception)
+	updatedReception, err := s.itemRepository.UpdateReception(ctx, newReception)
 	if err != nil {
 		return model.Reception{}, fmt.Errorf("close reception: %w", err)
 	}
