@@ -23,7 +23,7 @@ func (s *Service) CreateReception(ctx context.Context, userRole model.Role, pvzI
 			return model.Reception{}, fmt.Errorf("get in progress receptions: %w", err)
 		}
 	} else {
-		return model.Reception{}, fmt.Errorf("reception with status in_progress now exist")
+		return model.Reception{}, model.ErrReceptionAlreadyExist
 	}
 
 	reception, err := s.itemRepository.CreateReception(ctx, pvzID)
