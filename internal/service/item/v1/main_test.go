@@ -20,7 +20,6 @@ var (
 	testCloseReception      = model.Reception{ID: testReceptionID, PVZID: testPVZID, Status: model.CLOSE}
 
 	testReceptionFilter = model.ReceptionFilter{PVZID: &testPVZID, Status: &testStatus}
-	testProductFilter   = model.ProductFilter{ReceptionID: &testReceptionID}
 
 	testType   = "одежда"
 	testStatus = model.IN_PROGRESS
