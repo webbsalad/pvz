@@ -50,21 +50,8 @@ func (r *Repository) CreatePVZ(ctx context.Context, pvz model.PVZ) (model.PVZ, e
 	return newPVZ, nil
 }
 
-func (r *Repository) GetPVZsByParams(ctx context.Context, pvz model.PVZ) ([]model.PVZ, error) {
-	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
-	whereClause, err := buildPVZWhere(pvz)
-	if err != nil {
-		return nil, fmt.Errorf("build where clause: %w", err)
-	}
-
-	query := psql.
-		Select("*").
-		From("pvz")
-
-	if len(whereClause) > 0 {
-		query = query.Where(whereClause)
-	}
-
+func (r *Repository) GetPVZsByParams(ctx context.Context, pvzFilter model.PVZFilter) ([]model.PVZ, error) {
+	query := buildPVZQuery(pvzFilter)
 	q, args, err := query.ToSql()
 	if err != nil {
 		return nil, fmt.Errorf("build sql: %w", err)

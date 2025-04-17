@@ -8,5 +8,5 @@ import (
 
 type Repository interface {
 	CreatePVZ(ctx context.Context, pvz model.PVZ) (model.PVZ, error)
-	GetPVZsByParams(ctx context.Context, pvz model.PVZ) ([]model.PVZ, error)
+	GetPVZsByParams(ctx context.Context, pvzFilter model.PVZFilter) ([]model.PVZ, error)
 }

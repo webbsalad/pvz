@@ -1,5 +1,4 @@
 proto:
-
 	rm -rf ./internal/pb/github.com/webbsalad/pvz/pvz_v1/*
 
 	protoc \

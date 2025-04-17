@@ -47,6 +47,20 @@ func toReceptionFromDB(in Reception) (model.Reception, error) {
 	return reception, nil
 }
 
+func toProductsFromDB(in []Product) ([]model.Product, error) {
+	products := make([]model.Product, len(in))
+	for i, dbProduct := range in {
+		product, err := toProductFromDB(dbProduct)
+		if err != nil {
+			return nil, fmt.Errorf("convert db product to model: %w", err)
+		}
+
+		products[i] = product
+	}
+
+	return products, nil
+}
+
 func toProductFromDB(in Product) (model.Product, error) {
 	productID, err := model.NewProductID(in.ID)
 	if err != nil {
