@@ -9,3 +9,11 @@ type Product struct {
 
 	DateTime time.Time
 }
+
+type ProductFilter struct {
+	ReceptionID *ReceptionID
+	Type        *string
+
+	From *time.Time
+	To   *time.Time
+}

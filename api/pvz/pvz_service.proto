@@ -14,9 +14,16 @@ service PVZService {
         post: "/pvz",
         body: "*"
     };
-  };  
+  };
 
   rpc GetPVZList(GetPVZListRequest) returns (GetPVZListResponse);
+
+  rpc GetPVZIntervalList(GetPVZIntervalListRequest) returns (GetPVZIntervalListResponse) {
+    option (google.api.http) = {
+        get: "/pvz"
+        response_body: "pvzs"
+    };
+  };
 }
 
 message PVZ {
@@ -36,7 +43,7 @@ message GetPVZListResponse {
   repeated PVZ pvzs = 1;
 }
 
-message CreatePVZRequest{
+message CreatePVZRequest {
   string id = 1 [(validate.rules).string.uuid = true];
   google.protobuf.Timestamp registration_date = 2;
   string city = 3;
@@ -46,4 +53,41 @@ message CreatePVZResponse {
   string id = 1 [(validate.rules).string.uuid = true];
   google.protobuf.Timestamp registration_date = 2;
   string city = 3;
+}
+
+message GetPVZIntervalListRequest {
+  optional google.protobuf.Timestamp startDate = 1;
+  optional google.protobuf.Timestamp endDate = 2;
+  optional int32 page = 3;
+  optional int32 limit = 4;
+}
+
+message GetPVZIntervalListResponse {
+  repeated PVZWithReceptions pvzs = 1;
+}
+
+
+
+message PVZWithReceptions {
+  PVZ pvz = 1;
+  repeated ReceptionWithProducts receptions = 2;
+}
+
+message ReceptionWithProducts {
+  Reception reception = 1;
+  repeated Product products = 2;
+}
+
+message Reception {
+  string id = 1 [(validate.rules).string.uuid = true];
+  google.protobuf.Timestamp dateTime = 2;
+  string pvzID = 3 [(validate.rules).string.uuid = true];
+  string status = 4;
+}
+
+message Product {
+  string id = 1 [(validate.rules).string.uuid = true];
+  google.protobuf.Timestamp dateTime = 2;
+  string type = 3;
+  string receptionId = 4 [(validate.rules).string.uuid = true];
 }

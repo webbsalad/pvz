@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 type Reception struct {
 	ID     ReceptionID
@@ -8,4 +10,11 @@ type Reception struct {
 	Status Status
 
 	DateTime time.Time
+}
+
+type ReceptionFilter struct {
+	PVZID  *PVZID
+	Status *Status
+	From   *time.Time
+	To     *time.Time
 }

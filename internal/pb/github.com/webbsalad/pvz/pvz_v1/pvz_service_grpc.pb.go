@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PVZService_CreatePVZ_FullMethodName  = "/pvz.v1.PVZService/CreatePVZ"
-	PVZService_GetPVZList_FullMethodName = "/pvz.v1.PVZService/GetPVZList"
+	PVZService_CreatePVZ_FullMethodName          = "/pvz.v1.PVZService/CreatePVZ"
+	PVZService_GetPVZList_FullMethodName         = "/pvz.v1.PVZService/GetPVZList"
+	PVZService_GetPVZIntervalList_FullMethodName = "/pvz.v1.PVZService/GetPVZIntervalList"
 )
 
 // PVZServiceClient is the client API for PVZService service.
@@ -29,6 +30,7 @@ const (
 type PVZServiceClient interface {
 	CreatePVZ(ctx context.Context, in *CreatePVZRequest, opts ...grpc.CallOption) (*CreatePVZResponse, error)
 	GetPVZList(ctx context.Context, in *GetPVZListRequest, opts ...grpc.CallOption) (*GetPVZListResponse, error)
+	GetPVZIntervalList(ctx context.Context, in *GetPVZIntervalListRequest, opts ...grpc.CallOption) (*GetPVZIntervalListResponse, error)
 }
 
 type pVZServiceClient struct {
@@ -59,12 +61,23 @@ func (c *pVZServiceClient) GetPVZList(ctx context.Context, in *GetPVZListRequest
 	return out, nil
 }
 
+func (c *pVZServiceClient) GetPVZIntervalList(ctx context.Context, in *GetPVZIntervalListRequest, opts ...grpc.CallOption) (*GetPVZIntervalListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetPVZIntervalListResponse)
+	err := c.cc.Invoke(ctx, PVZService_GetPVZIntervalList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PVZServiceServer is the server API for PVZService service.
 // All implementations must embed UnimplementedPVZServiceServer
 // for forward compatibility.
 type PVZServiceServer interface {
 	CreatePVZ(context.Context, *CreatePVZRequest) (*CreatePVZResponse, error)
 	GetPVZList(context.Context, *GetPVZListRequest) (*GetPVZListResponse, error)
+	GetPVZIntervalList(context.Context, *GetPVZIntervalListRequest) (*GetPVZIntervalListResponse, error)
 	mustEmbedUnimplementedPVZServiceServer()
 }
 
@@ -80,6 +93,9 @@ func (UnimplementedPVZServiceServer) CreatePVZ(context.Context, *CreatePVZReques
 }
 func (UnimplementedPVZServiceServer) GetPVZList(context.Context, *GetPVZListRequest) (*GetPVZListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPVZList not implemented")
+}
+func (UnimplementedPVZServiceServer) GetPVZIntervalList(context.Context, *GetPVZIntervalListRequest) (*GetPVZIntervalListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPVZIntervalList not implemented")
 }
 func (UnimplementedPVZServiceServer) mustEmbedUnimplementedPVZServiceServer() {}
 func (UnimplementedPVZServiceServer) testEmbeddedByValue()                    {}
@@ -138,6 +154,24 @@ func _PVZService_GetPVZList_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PVZService_GetPVZIntervalList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPVZIntervalListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PVZServiceServer).GetPVZIntervalList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PVZService_GetPVZIntervalList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PVZServiceServer).GetPVZIntervalList(ctx, req.(*GetPVZIntervalListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PVZService_ServiceDesc is the grpc.ServiceDesc for PVZService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +186,10 @@ var PVZService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPVZList",
 			Handler:    _PVZService_GetPVZList_Handler,
+		},
+		{
+			MethodName: "GetPVZIntervalList",
+			Handler:    _PVZService_GetPVZIntervalList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

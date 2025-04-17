@@ -13,9 +13,10 @@ func (s *Service) CreateReception(ctx context.Context, userRole model.Role, pvzI
 		return model.Reception{}, model.ErrWrongRole
 	}
 
-	_, err := s.itemReporitory.GetReceptionsByParams(ctx, model.Reception{
-		PVZID:  pvzID,
-		Status: model.IN_PROGRESS,
+	status := model.IN_PROGRESS
+	_, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+		PVZID:  &pvzID,
+		Status: &status,
 	})
 	if err != nil {
 		if !errors.Is(err, model.ErrReceptionNotFound) {

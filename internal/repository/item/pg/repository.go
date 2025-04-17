@@ -21,12 +21,9 @@ func NewRepository(db *sqlx.DB) (item.Repository, error) {
 	return &Repository{db: db}, nil
 }
 
-func (r *Repository) GetReceptionsByParams(ctx context.Context, reception model.Reception) ([]model.Reception, error) {
+func (r *Repository) GetReceptionsByParams(ctx context.Context, receptionFilter model.ReceptionFilter) ([]model.Reception, error) {
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
-	whereClause, err := buildReceptionWhere(reception)
-	if err != nil {
-		return nil, fmt.Errorf("build where clause: %w", err)
-	}
+	whereClause := buildReceptionWhere(receptionFilter)
 
 	query := psql.
 		Select("*").
@@ -56,6 +53,40 @@ func (r *Repository) GetReceptionsByParams(ctx context.Context, reception model.
 	}
 
 	return receptions, nil
+}
+
+func (r *Repository) GetProductssByParams(ctx context.Context, productFilter model.ProductFilter) ([]model.Product, error) {
+	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
+	whereClause := buildProductWhere(productFilter)
+
+	query := psql.
+		Select("*").
+		From("product")
+
+	if len(whereClause) > 0 {
+		query = query.Where(whereClause)
+	}
+
+	q, args, err := query.ToSql()
+	if err != nil {
+		return nil, fmt.Errorf("build sql: %w", err)
+	}
+
+	var storedProducts []Product
+	if err := r.db.SelectContext(ctx, &storedProducts, q, args...); err != nil {
+		return nil, fmt.Errorf("select from product: %w", err)
+	}
+
+	if len(storedProducts) == 0 {
+		return nil, model.ErrProductNotFound
+	}
+
+	products, err := toProductsFromDB(storedProducts)
+	if err != nil {
+		return nil, fmt.Errorf("convert stored products to model: %w", err)
+	}
+
+	return products, nil
 }
 
 func (r *Repository) CreateReception(ctx context.Context, pvzID model.PVZID) (model.Reception, error) {

@@ -330,6 +330,358 @@ func (x *CreatePVZResponse) GetCity() string {
 	return ""
 }
 
+type GetPVZIntervalListRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	StartDate     *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=startDate,proto3,oneof" json:"startDate,omitempty"`
+	EndDate       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=endDate,proto3,oneof" json:"endDate,omitempty"`
+	Page          *int32                 `protobuf:"varint,3,opt,name=page,proto3,oneof" json:"page,omitempty"`
+	Limit         *int32                 `protobuf:"varint,4,opt,name=limit,proto3,oneof" json:"limit,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPVZIntervalListRequest) Reset() {
+	*x = GetPVZIntervalListRequest{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPVZIntervalListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPVZIntervalListRequest) ProtoMessage() {}
+
+func (x *GetPVZIntervalListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPVZIntervalListRequest.ProtoReflect.Descriptor instead.
+func (*GetPVZIntervalListRequest) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetPVZIntervalListRequest) GetStartDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartDate
+	}
+	return nil
+}
+
+func (x *GetPVZIntervalListRequest) GetEndDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EndDate
+	}
+	return nil
+}
+
+func (x *GetPVZIntervalListRequest) GetPage() int32 {
+	if x != nil && x.Page != nil {
+		return *x.Page
+	}
+	return 0
+}
+
+func (x *GetPVZIntervalListRequest) GetLimit() int32 {
+	if x != nil && x.Limit != nil {
+		return *x.Limit
+	}
+	return 0
+}
+
+type GetPVZIntervalListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Pvzs          []*PVZWithReceptions   `protobuf:"bytes,1,rep,name=pvzs,proto3" json:"pvzs,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetPVZIntervalListResponse) Reset() {
+	*x = GetPVZIntervalListResponse{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetPVZIntervalListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPVZIntervalListResponse) ProtoMessage() {}
+
+func (x *GetPVZIntervalListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPVZIntervalListResponse.ProtoReflect.Descriptor instead.
+func (*GetPVZIntervalListResponse) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetPVZIntervalListResponse) GetPvzs() []*PVZWithReceptions {
+	if x != nil {
+		return x.Pvzs
+	}
+	return nil
+}
+
+type PVZWithReceptions struct {
+	state         protoimpl.MessageState   `protogen:"open.v1"`
+	Pvz           *PVZ                     `protobuf:"bytes,1,opt,name=pvz,proto3" json:"pvz,omitempty"`
+	Receptions    []*ReceptionWithProducts `protobuf:"bytes,2,rep,name=receptions,proto3" json:"receptions,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PVZWithReceptions) Reset() {
+	*x = PVZWithReceptions{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PVZWithReceptions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PVZWithReceptions) ProtoMessage() {}
+
+func (x *PVZWithReceptions) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PVZWithReceptions.ProtoReflect.Descriptor instead.
+func (*PVZWithReceptions) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *PVZWithReceptions) GetPvz() *PVZ {
+	if x != nil {
+		return x.Pvz
+	}
+	return nil
+}
+
+func (x *PVZWithReceptions) GetReceptions() []*ReceptionWithProducts {
+	if x != nil {
+		return x.Receptions
+	}
+	return nil
+}
+
+type ReceptionWithProducts struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Reception     *Reception             `protobuf:"bytes,1,opt,name=reception,proto3" json:"reception,omitempty"`
+	Products      []*Product             `protobuf:"bytes,2,rep,name=products,proto3" json:"products,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReceptionWithProducts) Reset() {
+	*x = ReceptionWithProducts{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReceptionWithProducts) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReceptionWithProducts) ProtoMessage() {}
+
+func (x *ReceptionWithProducts) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReceptionWithProducts.ProtoReflect.Descriptor instead.
+func (*ReceptionWithProducts) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ReceptionWithProducts) GetReception() *Reception {
+	if x != nil {
+		return x.Reception
+	}
+	return nil
+}
+
+func (x *ReceptionWithProducts) GetProducts() []*Product {
+	if x != nil {
+		return x.Products
+	}
+	return nil
+}
+
+type Reception struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	DateTime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=dateTime,proto3" json:"dateTime,omitempty"`
+	PvzID         string                 `protobuf:"bytes,3,opt,name=pvzID,proto3" json:"pvzID,omitempty"`
+	Status        string                 `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Reception) Reset() {
+	*x = Reception{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Reception) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Reception) ProtoMessage() {}
+
+func (x *Reception) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Reception.ProtoReflect.Descriptor instead.
+func (*Reception) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *Reception) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Reception) GetDateTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DateTime
+	}
+	return nil
+}
+
+func (x *Reception) GetPvzID() string {
+	if x != nil {
+		return x.PvzID
+	}
+	return ""
+}
+
+func (x *Reception) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type Product struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	DateTime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=dateTime,proto3" json:"dateTime,omitempty"`
+	Type          string                 `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	ReceptionId   string                 `protobuf:"bytes,4,opt,name=receptionId,proto3" json:"receptionId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Product) Reset() {
+	*x = Product{}
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Product) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Product) ProtoMessage() {}
+
+func (x *Product) ProtoReflect() protoreflect.Message {
+	mi := &file_api_pvz_pvz_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Product.ProtoReflect.Descriptor instead.
+func (*Product) Descriptor() ([]byte, []int) {
+	return file_api_pvz_pvz_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *Product) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Product) GetDateTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DateTime
+	}
+	return nil
+}
+
+func (x *Product) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *Product) GetReceptionId() string {
+	if x != nil {
+		return x.ReceptionId
+	}
+	return ""
+}
+
 var File_api_pvz_pvz_service_proto protoreflect.FileDescriptor
 
 const file_api_pvz_pvz_service_proto_rawDesc = "" +
@@ -349,15 +701,47 @@ const file_api_pvz_pvz_service_proto_rawDesc = "" +
 	"\x11CreatePVZResponse\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12G\n" +
 	"\x11registration_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x10registrationDate\x12\x12\n" +
-	"\x04city\x18\x03 \x01(\tR\x04city*P\n" +
+	"\x04city\x18\x03 \x01(\tR\x04city\"\xf6\x01\n" +
+	"\x19GetPVZIntervalListRequest\x12=\n" +
+	"\tstartDate\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampH\x00R\tstartDate\x88\x01\x01\x129\n" +
+	"\aendDate\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampH\x01R\aendDate\x88\x01\x01\x12\x17\n" +
+	"\x04page\x18\x03 \x01(\x05H\x02R\x04page\x88\x01\x01\x12\x19\n" +
+	"\x05limit\x18\x04 \x01(\x05H\x03R\x05limit\x88\x01\x01B\f\n" +
+	"\n" +
+	"_startDateB\n" +
+	"\n" +
+	"\b_endDateB\a\n" +
+	"\x05_pageB\b\n" +
+	"\x06_limit\"K\n" +
+	"\x1aGetPVZIntervalListResponse\x12-\n" +
+	"\x04pvzs\x18\x01 \x03(\v2\x19.pvz.v1.PVZWithReceptionsR\x04pvzs\"q\n" +
+	"\x11PVZWithReceptions\x12\x1d\n" +
+	"\x03pvz\x18\x01 \x01(\v2\v.pvz.v1.PVZR\x03pvz\x12=\n" +
+	"\n" +
+	"receptions\x18\x02 \x03(\v2\x1d.pvz.v1.ReceptionWithProductsR\n" +
+	"receptions\"u\n" +
+	"\x15ReceptionWithProducts\x12/\n" +
+	"\treception\x18\x01 \x01(\v2\x11.pvz.v1.ReceptionR\treception\x12+\n" +
+	"\bproducts\x18\x02 \x03(\v2\x0f.pvz.v1.ProductR\bproducts\"\x95\x01\n" +
+	"\tReception\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x126\n" +
+	"\bdateTime\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bdateTime\x12\x1e\n" +
+	"\x05pvzID\x18\x03 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x05pvzID\x12\x16\n" +
+	"\x06status\x18\x04 \x01(\tR\x06status\"\x9b\x01\n" +
+	"\aProduct\x12\x18\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x126\n" +
+	"\bdateTime\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bdateTime\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12*\n" +
+	"\vreceptionId\x18\x04 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\vreceptionId*P\n" +
 	"\x0fReceptionStatus\x12 \n" +
 	"\x1cRECEPTION_STATUS_IN_PROGRESS\x10\x00\x12\x1b\n" +
-	"\x17RECEPTION_STATUS_CLOSED\x10\x012\xa4\x01\n" +
+	"\x17RECEPTION_STATUS_CLOSED\x10\x012\x95\x02\n" +
 	"\n" +
 	"PVZService\x12Q\n" +
 	"\tCreatePVZ\x12\x18.pvz.v1.CreatePVZRequest\x1a\x19.pvz.v1.CreatePVZResponse\"\x0f\x82\xd3\xe4\x93\x02\t:\x01*\"\x04/pvz\x12C\n" +
 	"\n" +
-	"GetPVZList\x12\x19.pvz.v1.GetPVZListRequest\x1a\x1a.pvz.v1.GetPVZListResponseB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
+	"GetPVZList\x12\x19.pvz.v1.GetPVZListRequest\x1a\x1a.pvz.v1.GetPVZListResponse\x12o\n" +
+	"\x12GetPVZIntervalList\x12!.pvz.v1.GetPVZIntervalListRequest\x1a\".pvz.v1.GetPVZIntervalListResponse\"\x12\x82\xd3\xe4\x93\x02\fb\x04pvzs\x12\x04/pvzB(Z&github.com/webbsalad/pvz/pvz_v1;pvz_v1b\x06proto3"
 
 var (
 	file_api_pvz_pvz_service_proto_rawDescOnce sync.Once
@@ -372,30 +756,47 @@ func file_api_pvz_pvz_service_proto_rawDescGZIP() []byte {
 }
 
 var file_api_pvz_pvz_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_api_pvz_pvz_service_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_api_pvz_pvz_service_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_api_pvz_pvz_service_proto_goTypes = []any{
-	(ReceptionStatus)(0),          // 0: pvz.v1.ReceptionStatus
-	(*PVZ)(nil),                   // 1: pvz.v1.PVZ
-	(*GetPVZListRequest)(nil),     // 2: pvz.v1.GetPVZListRequest
-	(*GetPVZListResponse)(nil),    // 3: pvz.v1.GetPVZListResponse
-	(*CreatePVZRequest)(nil),      // 4: pvz.v1.CreatePVZRequest
-	(*CreatePVZResponse)(nil),     // 5: pvz.v1.CreatePVZResponse
-	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(ReceptionStatus)(0),               // 0: pvz.v1.ReceptionStatus
+	(*PVZ)(nil),                        // 1: pvz.v1.PVZ
+	(*GetPVZListRequest)(nil),          // 2: pvz.v1.GetPVZListRequest
+	(*GetPVZListResponse)(nil),         // 3: pvz.v1.GetPVZListResponse
+	(*CreatePVZRequest)(nil),           // 4: pvz.v1.CreatePVZRequest
+	(*CreatePVZResponse)(nil),          // 5: pvz.v1.CreatePVZResponse
+	(*GetPVZIntervalListRequest)(nil),  // 6: pvz.v1.GetPVZIntervalListRequest
+	(*GetPVZIntervalListResponse)(nil), // 7: pvz.v1.GetPVZIntervalListResponse
+	(*PVZWithReceptions)(nil),          // 8: pvz.v1.PVZWithReceptions
+	(*ReceptionWithProducts)(nil),      // 9: pvz.v1.ReceptionWithProducts
+	(*Reception)(nil),                  // 10: pvz.v1.Reception
+	(*Product)(nil),                    // 11: pvz.v1.Product
+	(*timestamppb.Timestamp)(nil),      // 12: google.protobuf.Timestamp
 }
 var file_api_pvz_pvz_service_proto_depIdxs = []int32{
-	6, // 0: pvz.v1.PVZ.registration_date:type_name -> google.protobuf.Timestamp
-	1, // 1: pvz.v1.GetPVZListResponse.pvzs:type_name -> pvz.v1.PVZ
-	6, // 2: pvz.v1.CreatePVZRequest.registration_date:type_name -> google.protobuf.Timestamp
-	6, // 3: pvz.v1.CreatePVZResponse.registration_date:type_name -> google.protobuf.Timestamp
-	4, // 4: pvz.v1.PVZService.CreatePVZ:input_type -> pvz.v1.CreatePVZRequest
-	2, // 5: pvz.v1.PVZService.GetPVZList:input_type -> pvz.v1.GetPVZListRequest
-	5, // 6: pvz.v1.PVZService.CreatePVZ:output_type -> pvz.v1.CreatePVZResponse
-	3, // 7: pvz.v1.PVZService.GetPVZList:output_type -> pvz.v1.GetPVZListResponse
-	6, // [6:8] is the sub-list for method output_type
-	4, // [4:6] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	12, // 0: pvz.v1.PVZ.registration_date:type_name -> google.protobuf.Timestamp
+	1,  // 1: pvz.v1.GetPVZListResponse.pvzs:type_name -> pvz.v1.PVZ
+	12, // 2: pvz.v1.CreatePVZRequest.registration_date:type_name -> google.protobuf.Timestamp
+	12, // 3: pvz.v1.CreatePVZResponse.registration_date:type_name -> google.protobuf.Timestamp
+	12, // 4: pvz.v1.GetPVZIntervalListRequest.startDate:type_name -> google.protobuf.Timestamp
+	12, // 5: pvz.v1.GetPVZIntervalListRequest.endDate:type_name -> google.protobuf.Timestamp
+	8,  // 6: pvz.v1.GetPVZIntervalListResponse.pvzs:type_name -> pvz.v1.PVZWithReceptions
+	1,  // 7: pvz.v1.PVZWithReceptions.pvz:type_name -> pvz.v1.PVZ
+	9,  // 8: pvz.v1.PVZWithReceptions.receptions:type_name -> pvz.v1.ReceptionWithProducts
+	10, // 9: pvz.v1.ReceptionWithProducts.reception:type_name -> pvz.v1.Reception
+	11, // 10: pvz.v1.ReceptionWithProducts.products:type_name -> pvz.v1.Product
+	12, // 11: pvz.v1.Reception.dateTime:type_name -> google.protobuf.Timestamp
+	12, // 12: pvz.v1.Product.dateTime:type_name -> google.protobuf.Timestamp
+	4,  // 13: pvz.v1.PVZService.CreatePVZ:input_type -> pvz.v1.CreatePVZRequest
+	2,  // 14: pvz.v1.PVZService.GetPVZList:input_type -> pvz.v1.GetPVZListRequest
+	6,  // 15: pvz.v1.PVZService.GetPVZIntervalList:input_type -> pvz.v1.GetPVZIntervalListRequest
+	5,  // 16: pvz.v1.PVZService.CreatePVZ:output_type -> pvz.v1.CreatePVZResponse
+	3,  // 17: pvz.v1.PVZService.GetPVZList:output_type -> pvz.v1.GetPVZListResponse
+	7,  // 18: pvz.v1.PVZService.GetPVZIntervalList:output_type -> pvz.v1.GetPVZIntervalListResponse
+	16, // [16:19] is the sub-list for method output_type
+	13, // [13:16] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_api_pvz_pvz_service_proto_init() }
@@ -403,13 +804,14 @@ func file_api_pvz_pvz_service_proto_init() {
 	if File_api_pvz_pvz_service_proto != nil {
 		return
 	}
+	file_api_pvz_pvz_service_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_pvz_pvz_service_proto_rawDesc), len(file_api_pvz_pvz_service_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   5,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

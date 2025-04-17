@@ -12,9 +12,10 @@ func (s *Service) CloseReception(ctx context.Context, userRole model.Role, pvzID
 		return model.Reception{}, model.ErrWrongRole
 	}
 
-	reception, err := s.itemReporitory.GetReceptionsByParams(ctx, model.Reception{
-		PVZID:  pvzID,
-		Status: model.IN_PROGRESS,
+	status := model.IN_PROGRESS
+	reception, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+		PVZID:  &pvzID,
+		Status: &status,
 	})
 	if err != nil {
 		return model.Reception{}, fmt.Errorf("get receptions: %w", err)

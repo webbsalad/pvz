@@ -8,3 +8,13 @@ type PVZ struct {
 
 	RegistrationDate time.Time
 }
+
+type PVZFilter struct {
+	City *string
+
+	Page  *int32
+	Limit *int32
+
+	From *time.Time
+	To   *time.Time
+}

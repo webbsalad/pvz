@@ -710,3 +710,968 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreatePVZResponseValidationError{}
+
+// Validate checks the field values on GetPVZIntervalListRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetPVZIntervalListRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPVZIntervalListRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetPVZIntervalListRequestMultiError, or nil if none found.
+func (m *GetPVZIntervalListRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPVZIntervalListRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.StartDate != nil {
+
+		if all {
+			switch v := interface{}(m.GetStartDate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetPVZIntervalListRequestValidationError{
+						field:  "StartDate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetPVZIntervalListRequestValidationError{
+						field:  "StartDate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetStartDate()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetPVZIntervalListRequestValidationError{
+					field:  "StartDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.EndDate != nil {
+
+		if all {
+			switch v := interface{}(m.GetEndDate()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetPVZIntervalListRequestValidationError{
+						field:  "EndDate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetPVZIntervalListRequestValidationError{
+						field:  "EndDate",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetEndDate()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetPVZIntervalListRequestValidationError{
+					field:  "EndDate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if m.Page != nil {
+		// no validation rules for Page
+	}
+
+	if m.Limit != nil {
+		// no validation rules for Limit
+	}
+
+	if len(errors) > 0 {
+		return GetPVZIntervalListRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPVZIntervalListRequestMultiError is an error wrapping multiple validation
+// errors returned by GetPVZIntervalListRequest.ValidateAll() if the
+// designated constraints aren't met.
+type GetPVZIntervalListRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPVZIntervalListRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPVZIntervalListRequestMultiError) AllErrors() []error { return m }
+
+// GetPVZIntervalListRequestValidationError is the validation error returned by
+// GetPVZIntervalListRequest.Validate if the designated constraints aren't met.
+type GetPVZIntervalListRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPVZIntervalListRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPVZIntervalListRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPVZIntervalListRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPVZIntervalListRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPVZIntervalListRequestValidationError) ErrorName() string {
+	return "GetPVZIntervalListRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPVZIntervalListRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPVZIntervalListRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPVZIntervalListRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPVZIntervalListRequestValidationError{}
+
+// Validate checks the field values on GetPVZIntervalListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetPVZIntervalListResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetPVZIntervalListResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetPVZIntervalListResponseMultiError, or nil if none found.
+func (m *GetPVZIntervalListResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetPVZIntervalListResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetPvzs() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetPVZIntervalListResponseValidationError{
+						field:  fmt.Sprintf("Pvzs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetPVZIntervalListResponseValidationError{
+						field:  fmt.Sprintf("Pvzs[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetPVZIntervalListResponseValidationError{
+					field:  fmt.Sprintf("Pvzs[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetPVZIntervalListResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetPVZIntervalListResponseMultiError is an error wrapping multiple
+// validation errors returned by GetPVZIntervalListResponse.ValidateAll() if
+// the designated constraints aren't met.
+type GetPVZIntervalListResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetPVZIntervalListResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetPVZIntervalListResponseMultiError) AllErrors() []error { return m }
+
+// GetPVZIntervalListResponseValidationError is the validation error returned
+// by GetPVZIntervalListResponse.Validate if the designated constraints aren't met.
+type GetPVZIntervalListResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetPVZIntervalListResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetPVZIntervalListResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetPVZIntervalListResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetPVZIntervalListResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetPVZIntervalListResponseValidationError) ErrorName() string {
+	return "GetPVZIntervalListResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetPVZIntervalListResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetPVZIntervalListResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetPVZIntervalListResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetPVZIntervalListResponseValidationError{}
+
+// Validate checks the field values on PVZWithReceptions with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PVZWithReceptions) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PVZWithReceptions with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PVZWithReceptionsMultiError, or nil if none found.
+func (m *PVZWithReceptions) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PVZWithReceptions) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPvz()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PVZWithReceptionsValidationError{
+					field:  "Pvz",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PVZWithReceptionsValidationError{
+					field:  "Pvz",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPvz()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PVZWithReceptionsValidationError{
+				field:  "Pvz",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetReceptions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PVZWithReceptionsValidationError{
+						field:  fmt.Sprintf("Receptions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PVZWithReceptionsValidationError{
+						field:  fmt.Sprintf("Receptions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PVZWithReceptionsValidationError{
+					field:  fmt.Sprintf("Receptions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return PVZWithReceptionsMultiError(errors)
+	}
+
+	return nil
+}
+
+// PVZWithReceptionsMultiError is an error wrapping multiple validation errors
+// returned by PVZWithReceptions.ValidateAll() if the designated constraints
+// aren't met.
+type PVZWithReceptionsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PVZWithReceptionsMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PVZWithReceptionsMultiError) AllErrors() []error { return m }
+
+// PVZWithReceptionsValidationError is the validation error returned by
+// PVZWithReceptions.Validate if the designated constraints aren't met.
+type PVZWithReceptionsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PVZWithReceptionsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PVZWithReceptionsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PVZWithReceptionsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PVZWithReceptionsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PVZWithReceptionsValidationError) ErrorName() string {
+	return "PVZWithReceptionsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PVZWithReceptionsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPVZWithReceptions.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PVZWithReceptionsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PVZWithReceptionsValidationError{}
+
+// Validate checks the field values on ReceptionWithProducts with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReceptionWithProducts) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReceptionWithProducts with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReceptionWithProductsMultiError, or nil if none found.
+func (m *ReceptionWithProducts) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReceptionWithProducts) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetReception()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReceptionWithProductsValidationError{
+					field:  "Reception",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReceptionWithProductsValidationError{
+					field:  "Reception",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetReception()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReceptionWithProductsValidationError{
+				field:  "Reception",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetProducts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReceptionWithProductsValidationError{
+						field:  fmt.Sprintf("Products[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReceptionWithProductsValidationError{
+						field:  fmt.Sprintf("Products[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReceptionWithProductsValidationError{
+					field:  fmt.Sprintf("Products[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ReceptionWithProductsMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReceptionWithProductsMultiError is an error wrapping multiple validation
+// errors returned by ReceptionWithProducts.ValidateAll() if the designated
+// constraints aren't met.
+type ReceptionWithProductsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReceptionWithProductsMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReceptionWithProductsMultiError) AllErrors() []error { return m }
+
+// ReceptionWithProductsValidationError is the validation error returned by
+// ReceptionWithProducts.Validate if the designated constraints aren't met.
+type ReceptionWithProductsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReceptionWithProductsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReceptionWithProductsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReceptionWithProductsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReceptionWithProductsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReceptionWithProductsValidationError) ErrorName() string {
+	return "ReceptionWithProductsValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReceptionWithProductsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReceptionWithProducts.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReceptionWithProductsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReceptionWithProductsValidationError{}
+
+// Validate checks the field values on Reception with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Reception) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Reception with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ReceptionMultiError, or nil
+// if none found.
+func (m *Reception) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Reception) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = ReceptionValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetDateTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReceptionValidationError{
+					field:  "DateTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReceptionValidationError{
+					field:  "DateTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDateTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReceptionValidationError{
+				field:  "DateTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if err := m._validateUuid(m.GetPvzID()); err != nil {
+		err = ReceptionValidationError{
+			field:  "PvzID",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Status
+
+	if len(errors) > 0 {
+		return ReceptionMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *Reception) _validateUuid(uuid string) error {
+	if matched := _pvz_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// ReceptionMultiError is an error wrapping multiple validation errors returned
+// by Reception.ValidateAll() if the designated constraints aren't met.
+type ReceptionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReceptionMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReceptionMultiError) AllErrors() []error { return m }
+
+// ReceptionValidationError is the validation error returned by
+// Reception.Validate if the designated constraints aren't met.
+type ReceptionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReceptionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReceptionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReceptionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReceptionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReceptionValidationError) ErrorName() string { return "ReceptionValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ReceptionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReception.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReceptionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReceptionValidationError{}
+
+// Validate checks the field values on Product with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Product) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Product with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in ProductMultiError, or nil if none found.
+func (m *Product) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Product) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetId()); err != nil {
+		err = ProductValidationError{
+			field:  "Id",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetDateTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProductValidationError{
+					field:  "DateTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProductValidationError{
+					field:  "DateTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetDateTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProductValidationError{
+				field:  "DateTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Type
+
+	if err := m._validateUuid(m.GetReceptionId()); err != nil {
+		err = ProductValidationError{
+			field:  "ReceptionId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ProductMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *Product) _validateUuid(uuid string) error {
+	if matched := _pvz_service_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// ProductMultiError is an error wrapping multiple validation errors returned
+// by Product.ValidateAll() if the designated constraints aren't met.
+type ProductMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ProductMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ProductMultiError) AllErrors() []error { return m }
+
+// ProductValidationError is the validation error returned by Product.Validate
+// if the designated constraints aren't met.
+type ProductValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ProductValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ProductValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ProductValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ProductValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ProductValidationError) ErrorName() string { return "ProductValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ProductValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sProduct.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ProductValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ProductValidationError{}

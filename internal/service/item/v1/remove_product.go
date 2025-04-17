@@ -12,9 +12,10 @@ func (s *Service) RemoveProduct(ctx context.Context, userRole model.Role, pvzID 
 		return model.ErrWrongRole
 	}
 
-	reception, err := s.itemReporitory.GetReceptionsByParams(ctx, model.Reception{
-		PVZID:  pvzID,
-		Status: model.IN_PROGRESS,
+	status := model.IN_PROGRESS
+	reception, err := s.itemReporitory.GetReceptionsByParams(ctx, model.ReceptionFilter{
+		PVZID:  &pvzID,
+		Status: &status,
 	})
 	if err != nil {
 		return fmt.Errorf("get reception: %w", err)
