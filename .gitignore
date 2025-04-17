@@ -1,3 +1,4 @@
 .env
 vendor.protogen
 main.go
+coverage.out

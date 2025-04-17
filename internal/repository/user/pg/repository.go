@@ -68,8 +68,13 @@ func (r *Repository) GetUserID(ctx context.Context, email string) (model.UserID,
 	}
 
 	var strUserID string
-	if err := r.db.GetContext(ctx, &strUserID, q, args...); err != nil {
-		return model.UserID{}, fmt.Errorf("get user id: %w", err)
+	err = r.db.GetContext(ctx, &strUserID, q, args...)
+
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return model.UserID{}, model.ErrUserNotFound
+		}
+		return model.UserID{}, fmt.Errorf("get user: %w", err)
 	}
 
 	userID, err := model.NewUserID(strUserID)
@@ -117,7 +122,11 @@ func (r *Repository) GetUser(ctx context.Context, userID model.UserID) (model.Us
 	}
 
 	var storedUser User
-	if err := r.db.GetContext(ctx, &storedUser, q, args...); err != nil {
+	err = r.db.GetContext(ctx, &storedUser, q, args...)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return model.User{}, model.ErrUserNotFound
+		}
 		return model.User{}, fmt.Errorf("get user: %w", err)
 	}
 
