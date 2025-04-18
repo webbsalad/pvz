@@ -19,4 +19,4 @@ RUN wget -qO /usr/local/bin/goose \
       https://github.com/pressly/goose/releases/download/${GOOSE_VERSION}/goose_linux_x86_64 \
     && chmod +x /usr/local/bin/goose
 
-CMD ["sh", "-c", "goose -dir ./migrations postgres \"$DSN\" up && exec /usr/local/bin/main"]
+    CMD ["sh", "-c", "goose -dir ./migrations postgres \"$DSN\" up && exec /usr/local/bin/main -env=staging --log-file=./logs/app.log"]
