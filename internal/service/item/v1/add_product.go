@@ -7,7 +7,7 @@ import (
 	"github.com/webbsalad/pvz/internal/model"
 )
 
-func (s *Service) AddProduct(ctx context.Context, userRole model.Role, pvzID model.PVZID, productType string) (model.Product, error) {
+func (s *Service) AddProduct(ctx context.Context, userRole model.Role, pvzID model.PVZID, product model.Product) (model.Product, error) {
 	if userRole != model.EMPLOYEE {
 		return model.Product{}, model.ErrWrongRole
 	}
@@ -21,13 +21,11 @@ func (s *Service) AddProduct(ctx context.Context, userRole model.Role, pvzID mod
 		return model.Product{}, fmt.Errorf("get in progress reception: %w", err)
 	}
 
-	product, err := s.itemRepository.AddProduct(ctx, model.Product{
-		ReceptionID: receptions[0].ID,
-		Type:        productType,
-	})
+	product.ReceptionID = receptions[0].ID
+	newProduct, err := s.itemRepository.AddProduct(ctx, product)
 	if err != nil {
 		return model.Product{}, fmt.Errorf("add: %w", err)
 	}
 
-	return product, nil
+	return newProduct, nil
 }

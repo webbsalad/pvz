@@ -115,7 +115,7 @@ func TestService_AddProduct(t *testing.T) {
 
 			tc.mocks(tc, deps)
 
-			product, err := deps.Service.AddProduct(deps.ctx, tc.args.userRole, tc.args.pvzID, tc.args.productType)
+			product, err := deps.Service.AddProduct(deps.ctx, tc.args.userRole, tc.args.pvzID, model.Product{Type: tc.args.productType})
 
 			require.ErrorIs(t, err, tc.result.err)
 			if err == nil {

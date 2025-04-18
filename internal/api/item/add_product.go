@@ -28,7 +28,7 @@ func (i *Implementation) AddProduct(ctx context.Context, req *desc.AddProductReq
 		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	product, err := i.itemService.AddProduct(ctx, userRole, pvzID, req.GetType())
+	product, err := i.itemService.AddProduct(ctx, userRole, pvzID, model.Product{Type: req.GetType()})
 	if err != nil {
 		return nil, convertor.ConvertError(err, i.log)
 	}
