@@ -22,7 +22,7 @@ func (i *Implementation) Register(ctx context.Context, req *desc.RegisterRequest
 
 	user, err := i.loginService.Register(ctx, model.User{Email: req.GetEmail(), Role: role}, req.GetPassword())
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.RegisterResponse{

@@ -47,7 +47,7 @@ func (i *Implementation) GetPVZIntervalList(ctx context.Context, req *desc.GetPV
 
 	pvzs, err := i.pvzService.GetPVZIntervalList(ctx, userRole, page, limit, from, to)
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.GetPVZIntervalListResponse{

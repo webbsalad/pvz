@@ -22,7 +22,7 @@ func (i *Implementation) DummyLogin(ctx context.Context, req *desc.DummyLoginReq
 
 	token, err := i.loginService.DummyLogin(ctx, role)
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.DummyLoginResponse{

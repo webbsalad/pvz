@@ -29,7 +29,7 @@ func (i *Implementation) AddProduct(ctx context.Context, req *desc.AddProductReq
 
 	product, err := i.itemService.AddProduct(ctx, userRole, pvzID, req.GetType())
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.AddProductResponse{

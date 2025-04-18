@@ -27,7 +27,7 @@ func (i *Implementation) RemoveProduct(ctx context.Context, req *desc.RemoveProd
 	}
 
 	if err := i.itemService.RemoveProduct(ctx, userRole, pvzID); err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.RemoveProductResponse{}, nil

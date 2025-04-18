@@ -29,7 +29,7 @@ func (i *Implementation) CloseReception(ctx context.Context, req *desc.CloseRece
 
 	reception, err := i.itemService.CloseReception(ctx, userRole, pvzID)
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.CloseReceptionResponse{
