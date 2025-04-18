@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -13,6 +14,7 @@ import (
 	"go.uber.org/fx"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/webbsalad/pvz/internal/config"
 	"github.com/webbsalad/pvz/internal/utils/jwt"
@@ -53,7 +55,20 @@ func gatewayOption() fx.Option {
 	cfg := config.NewConfig()
 
 	return fx.Invoke(func(lc fx.Lifecycle) {
-		mux := runtime.NewServeMux()
+		mux := runtime.NewServeMux(
+			runtime.WithForwardResponseOption(func(ctx context.Context, w http.ResponseWriter, resp proto.Message) error {
+				if smd, ok := runtime.ServerMetadataFromContext(ctx); ok {
+					if vals := smd.HeaderMD.Get("http-code"); len(vals) > 0 {
+						if code, err := strconv.Atoi(vals[0]); err == nil {
+							w.WriteHeader(code)
+						} else {
+							return err
+						}
+					}
+				}
+				return nil
+			}),
+		)
 
 		opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 		endpoint := fmt.Sprintf("localhost:%d", *grpcPort)

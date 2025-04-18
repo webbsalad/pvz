@@ -18,12 +18,12 @@ func (i *Implementation) RemoveProduct(ctx context.Context, req *desc.RemoveProd
 
 	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	pvzID, err := model.NewPVZID(req.GetPvzId())
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	if err := i.itemService.RemoveProduct(ctx, userRole, pvzID); err != nil {

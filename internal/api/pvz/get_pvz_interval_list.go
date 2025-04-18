@@ -18,7 +18,7 @@ func (i *Implementation) GetPVZIntervalList(ctx context.Context, req *desc.GetPV
 
 	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	var (

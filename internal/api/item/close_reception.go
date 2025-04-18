@@ -19,12 +19,12 @@ func (i *Implementation) CloseReception(ctx context.Context, req *desc.CloseRece
 
 	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	pvzID, err := model.NewPVZID(req.GetPvzId())
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	reception, err := i.itemService.CloseReception(ctx, userRole, pvzID)

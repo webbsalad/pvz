@@ -2,6 +2,7 @@ package pvz
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/webbsalad/pvz/internal/convertor"
 	"github.com/webbsalad/pvz/internal/model"
@@ -19,12 +20,12 @@ func (i *Implementation) CreatePVZ(ctx context.Context, req *desc.CreatePVZReque
 
 	pvzID, err := model.NewPVZID(req.GetId())
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	pvz, err := i.pvzService.CreatePVZ(ctx, userRole, model.PVZ{
@@ -34,6 +35,10 @@ func (i *Implementation) CreatePVZ(ctx context.Context, req *desc.CreatePVZReque
 	})
 	if err != nil {
 		return nil, convertor.ConvertError(err, i.log)
+	}
+
+	if err := metadata.SetHTTPStatus(ctx, http.StatusCreated); err != nil {
+		return nil, status.Errorf(codes.Internal, "set http status: %v", err)
 	}
 
 	return &desc.CreatePVZResponse{

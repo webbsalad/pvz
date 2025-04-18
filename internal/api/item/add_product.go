@@ -2,6 +2,7 @@ package reception
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/webbsalad/pvz/internal/convertor"
 	"github.com/webbsalad/pvz/internal/model"
@@ -19,12 +20,12 @@ func (i *Implementation) AddProduct(ctx context.Context, req *desc.AddProductReq
 
 	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	pvzID, err := model.NewPVZID(req.GetPvzId())
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	product, err := i.itemService.AddProduct(ctx, userRole, pvzID, req.GetType())
@@ -32,6 +33,9 @@ func (i *Implementation) AddProduct(ctx context.Context, req *desc.AddProductReq
 		return nil, convertor.ConvertError(err, i.log)
 	}
 
+	if err := metadata.SetHTTPStatus(ctx, http.StatusCreated); err != nil {
+		return nil, status.Errorf(codes.Internal, "set http status: %v", err)
+	}
 	return &desc.AddProductResponse{
 		Id:          product.ID.String(),
 		DateTime:    timestamppb.New(product.DateTime),

@@ -17,7 +17,7 @@ func (i *Implementation) DummyLogin(ctx context.Context, req *desc.DummyLoginReq
 
 	role, err := model.NewRole(req.GetRole())
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	token, err := i.loginService.DummyLogin(ctx, role)

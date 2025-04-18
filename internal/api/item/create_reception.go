@@ -2,6 +2,7 @@ package reception
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/webbsalad/pvz/internal/convertor"
 	"github.com/webbsalad/pvz/internal/model"
@@ -19,12 +20,12 @@ func (i *Implementation) CreateReception(ctx context.Context, req *desc.CreateRe
 
 	userRole, err := metadata.GetRole(ctx)
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	pvzID, err := model.NewPVZID(req.GetPvzId())
 	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "%v", err)
+		return nil, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	reception, err := i.itemService.CreateReception(ctx, userRole, pvzID)
@@ -32,6 +33,9 @@ func (i *Implementation) CreateReception(ctx context.Context, req *desc.CreateRe
 		return nil, convertor.ConvertError(err, i.log)
 	}
 
+	if err := metadata.SetHTTPStatus(ctx, http.StatusCreated); err != nil {
+		return nil, status.Errorf(codes.Internal, "set http status: %v", err)
+	}
 	return &desc.CreateReceptionResponse{
 		Id:       reception.ID.String(),
 		DateTime: timestamppb.New(reception.DateTime),
