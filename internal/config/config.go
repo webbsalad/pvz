@@ -3,8 +3,6 @@ package config
 import (
 	"log"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -13,13 +11,18 @@ type Config struct {
 }
 
 func NewConfig() Config {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading env")
+	dsn := os.Getenv("DSN")
+	if dsn == "" {
+		log.Fatal("environment variable DSN is required")
+	}
+
+	jwt := os.Getenv("JWT_SECRET")
+	if jwt == "" {
+		log.Fatal("environment variable JWT_SECRET is required")
 	}
 
 	return Config{
-		DSN:       os.Getenv("DSN"),
-		JWTSecret: os.Getenv("JWT_SECRET"),
+		DSN:       dsn,
+		JWTSecret: jwt,
 	}
 }
