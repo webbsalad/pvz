@@ -23,6 +23,7 @@ func NewApp() *fx.App {
 		fx.Provide(
 			config.NewConfig,
 			initDB,
+			setupLogger,
 		),
 
 		grpcOption(),

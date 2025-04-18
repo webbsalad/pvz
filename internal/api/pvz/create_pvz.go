@@ -33,7 +33,7 @@ func (i *Implementation) CreatePVZ(ctx context.Context, req *desc.CreatePVZReque
 		RegistrationDate: req.GetRegistrationDate().AsTime(),
 	})
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.CreatePVZResponse{

@@ -29,7 +29,7 @@ func (i *Implementation) CreateReception(ctx context.Context, req *desc.CreateRe
 
 	reception, err := i.itemService.CreateReception(ctx, userRole, pvzID)
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.CreateReceptionResponse{

@@ -16,7 +16,7 @@ func (i *Implementation) GetPVZList(ctx context.Context, req *desc.GetPVZListReq
 
 	pvzs, err := i.pvzService.GetPVZList(ctx)
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.GetPVZListResponse{

@@ -16,7 +16,7 @@ func (i *Implementation) Login(ctx context.Context, req *desc.LoginRequest) (*de
 
 	token, err := i.loginService.Login(ctx, req.GetEmail(), req.GetPassword())
 	if err != nil {
-		return nil, convertor.ConvertError(err)
+		return nil, convertor.ConvertError(err, i.log)
 	}
 
 	return &desc.LoginResponse{
