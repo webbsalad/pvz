@@ -55,7 +55,7 @@ func (r *Repository) GetReceptionsByParams(ctx context.Context, receptionFilter 
 	return receptions, nil
 }
 
-func (r *Repository) GetProductssByParams(ctx context.Context, productFilter model.ProductFilter) ([]model.Product, error) {
+func (r *Repository) GetProductsByParams(ctx context.Context, productFilter model.ProductFilter) ([]model.Product, error) {
 	psql := sq.StatementBuilder.PlaceholderFormat(sq.Dollar)
 	whereClause := buildProductWhere(productFilter)
 

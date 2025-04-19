@@ -65,19 +65,19 @@ func (mr *MockRepositoryMockRecorder) CreateReception(ctx, pvzID interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateReception", reflect.TypeOf((*MockRepository)(nil).CreateReception), ctx, pvzID)
 }
 
-// GetProductssByParams mocks base method.
-func (m *MockRepository) GetProductssByParams(ctx context.Context, productFilter model.ProductFilter) ([]model.Product, error) {
+// GetProductsByParams mocks base method.
+func (m *MockRepository) GetProductsByParams(ctx context.Context, productFilter model.ProductFilter) ([]model.Product, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetProductssByParams", ctx, productFilter)
+	ret := m.ctrl.Call(m, "GetProductsByParams", ctx, productFilter)
 	ret0, _ := ret[0].([]model.Product)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetProductssByParams indicates an expected call of GetProductssByParams.
-func (mr *MockRepositoryMockRecorder) GetProductssByParams(ctx, productFilter interface{}) *gomock.Call {
+// GetProductsByParams indicates an expected call of GetProductsByParams.
+func (mr *MockRepositoryMockRecorder) GetProductsByParams(ctx, productFilter interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductssByParams", reflect.TypeOf((*MockRepository)(nil).GetProductssByParams), ctx, productFilter)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetProductsByParams", reflect.TypeOf((*MockRepository)(nil).GetProductsByParams), ctx, productFilter)
 }
 
 // GetReceptionsByParams mocks base method.
