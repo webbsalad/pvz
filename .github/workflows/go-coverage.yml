@@ -21,7 +21,7 @@ jobs:
           go-version: stable
 
       - name: Run tests with coverage
-        run: go test -cover -coverprofile=coverage.out ./internal/service/...
+        run: go test -cover -coverprofile=coverage.out ./internal/service/... ./internal/utils/...
 
       - name: Calculate coverage percentage
         id: coverage

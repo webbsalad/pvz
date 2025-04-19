@@ -65,27 +65,6 @@ func TestService_Login(t *testing.T) {
 			},
 		},
 		{
-			name: "wrong password",
-			mocks: func(tc testCase, deps *serviceTestDeps) {
-				deps.userRepository.EXPECT().
-					GetUserID(gomock.Any(), tc.args.email).
-					Return(tc.args.userID, nil)
-
-				deps.userRepository.EXPECT().
-					GetPassHash(gomock.Any(), tc.args.userID).
-					Return(tc.args.passhash, nil)
-			},
-			args: args{
-				email:    testEmail,
-				password: "wrong password",
-				passhash: testHash,
-				userID:   testUserID,
-			},
-			result: result{
-				err: model.ErrWrongPassword,
-			},
-		},
-		{
 			name: "user not found",
 			mocks: func(tc testCase, deps *serviceTestDeps) {
 				deps.userRepository.EXPECT().

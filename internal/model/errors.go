@@ -22,6 +22,5 @@ var (
 	ErrReceptionNotFound     = fmt.Errorf("reception not found: %w", ErrNotFound)
 	ErrProductNotFound       = fmt.Errorf("product not found: %w", ErrNotFound)
 	ErrPVZNotFound           = fmt.Errorf("pvz not found; %w", ErrNotFound)
-	ErrWrongPassword         = fmt.Errorf("wrong password: %w", ErrInvalidArgument)
 	ErrUserNotFound          = fmt.Errorf("user not found: %w", ErrNotFound)
 )
