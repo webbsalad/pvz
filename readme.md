@@ -8,7 +8,7 @@
 
 ## вариант 1 (без клонирования репозитория через docker hub):
 
-создание сети и контейнера с postgres(если хотите использовать свою бд то просто в дальнейшем ссылках на бд вставляйте свою):
+#### **создание сети и контейнера с postgres(если хотите использовать свою бд то просто в дальнейшем ссылках на бд вставляйте свою):**
 ```
 docker network create pvz-net
 
@@ -22,7 +22,7 @@ docker run -d \
 
 ```
 
-пул и запуск контейнера c env параметрами:
+#### **пул и запуск контейнера c env параметрами:**
 ```
 docker run -d --name pvz-app \
   --network pvz-net \
@@ -39,12 +39,12 @@ docker run -d --name pvz-app \
 
 ##  вариант 2 (с клонированием репозитория и запуском через docker compose):
 
-склонируйте репозиторий:
+#### **склонируйте репозиторий:**
 ```
 git clone github.com/webbsalad/pvz
 ```
 
-в корне проекта создайте .env файл с наполнением вида:
+#### **в корне проекта создайте .env файл с наполнением вида:**
 ```
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=pvz-password
@@ -54,7 +54,7 @@ DSN=postgres://postgres:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?sslmode=disa
 JWT_SECRET=test secret
 ```
 
-выполните команду:
+#### **выполните команду:**
 ```
 docker-compose up --build
 ```
@@ -62,7 +62,7 @@ docker-compose up --build
 
 ### вариант 3 (с клонированием репозитория и запуском через go run):
 
-создание сети и контейнера с postgres(если хотите использовать свою бд то просто в дальнейшем ссылках на бд вставляйте свою):
+#### **создание сети и контейнера с postgres(если хотите использовать свою бд то просто в дальнейшем ссылках на бд вставляйте свою):**
 ```
 docker network create pvz-net
 
@@ -74,24 +74,25 @@ docker run -d \
   postgres:15-alpine
 ```
 
-склонируйте репозиторий:
+#### **склонируйте репозиторий:**
 ```
 git clone github.com/webbsalad/pvz
 ```
 
-выполнение миграций:
+#### **выполнение миграций:**
 ```
 goose -dir migrations  postgres "postgres://postgres:pvz-password@localhost:5432/postgres?sslmode=disable" up
 ```
 
-запуск приложения:
+#### **запуск приложения:**
 ```
 DSN="postgres://postgres:pvz-password@localhost:5432/postgres?sslmode=disable" \
 JWT_SECRET="test secret" \
 go run cmd/main.go -env=staging --log-file=./logs/app.log
 ```
 
- 
+
+
  Примечание: для интеграционных тестов нужно создать файл .env.test
 ``` 
 testDSN=postgres://postgres:test-pvz-password@localhost:5432/postgres?sslmode=disable
