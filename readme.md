@@ -93,8 +93,15 @@ go run cmd/main.go -env=staging --log-file=./logs/app.log
 
 
 
- Примечание: для интеграционных тестов нужно создать файл .env.test
+#### **Примечание:**
+
+для интеграционных тестов нужно создать файл .env.test
 ``` 
 testDSN=postgres://postgres:test-pvz-password@localhost:5432/postgres?sslmode=disable
 testJWT_SECRET=test secret
+```
+
+для запуска unit тестов можете использовать:
+```
+make test
 ```

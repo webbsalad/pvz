@@ -31,3 +31,6 @@ mocks:
 	mockgen -source ./internal/repository/item/repository.go -destination ./internal/repository/item/mock/repository.go -package mock_item
 	mockgen -source ./internal/repository/user/repository.go -destination ./internal/repository/user/mock/repository.go -package mock_user
 	mockgen -source ./internal/repository/pvz/repository.go -destination ./internal/repository/pvz/mock/repository.go -package mock_pvz
+
+test:
+	go test -cover -coverprofile=coverage.out ./internal/service/... ./internal/utils...
