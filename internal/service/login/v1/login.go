@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/webbsalad/pvz/internal/model"
 	"github.com/webbsalad/pvz/internal/utils/hash"
 	"github.com/webbsalad/pvz/internal/utils/jwt"
 )
@@ -21,7 +20,7 @@ func (s *Service) Login(ctx context.Context, email, password string) (string, er
 	}
 
 	if err := hash.CheckPassword(passhash, password); err != nil {
-		return "", model.ErrWrongPassword
+		return "", fmt.Errorf("check password: %w", err)
 	}
 
 	user, err := s.userRepository.GetUser(ctx, userID)
