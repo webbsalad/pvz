@@ -46,7 +46,7 @@ func doRequest(t *testing.T, method, url string, body interface{}, out interface
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusCreated {
 		t.Fatalf("unexpected status %d from %s %s", resp.StatusCode, method, url)
 	}
 
