@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/webbsalad/pvz/internal/config"
+	"github.com/webbsalad/pvz/internal/metrics"
 	"go.uber.org/fx"
 
 	item_api "github.com/webbsalad/pvz/internal/api/item"
@@ -26,10 +27,11 @@ func NewApp() *fx.App {
 			setupLogger,
 		),
 
+		metrics.Module(),
+
 		grpcOption(),
 		gatewayOption(),
 
-		// services
 		servicesOption(),
 	)
 }

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/webbsalad/pvz/internal/metrics"
 	"github.com/webbsalad/pvz/internal/model"
 )
 
@@ -31,5 +32,6 @@ func (s *Service) CreateReception(ctx context.Context, userRole model.Role, pvzI
 		return model.Reception{}, fmt.Errorf("create reception: %w", err)
 	}
 
+	metrics.ReceptionCreated.Inc()
 	return reception, nil
 }
