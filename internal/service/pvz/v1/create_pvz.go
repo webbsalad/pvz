@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/webbsalad/pvz/internal/metrics"
 	"github.com/webbsalad/pvz/internal/model"
 )
 
@@ -17,5 +18,6 @@ func (s *Service) CreatePVZ(ctx context.Context, userRole model.Role, pvz model.
 		return model.PVZ{}, fmt.Errorf("create pvz: %w", err)
 	}
 
+	metrics.PVZCreated.Inc()
 	return newPVZ, nil
 }

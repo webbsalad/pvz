@@ -4,3 +4,4 @@ vendor.protogen
 main.go
 coverage.out
 logs
+.DS_Store

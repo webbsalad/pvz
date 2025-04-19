@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/webbsalad/pvz/internal/metrics"
 	"github.com/webbsalad/pvz/internal/model"
 )
 
@@ -27,5 +28,6 @@ func (s *Service) AddProduct(ctx context.Context, userRole model.Role, pvzID mod
 		return model.Product{}, fmt.Errorf("add: %w", err)
 	}
 
+	metrics.ProductAdded.Inc()
 	return newProduct, nil
 }
