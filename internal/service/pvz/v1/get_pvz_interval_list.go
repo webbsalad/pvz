@@ -50,7 +50,7 @@ func (s *Service) GetPVZIntervalList(ctx context.Context, userRole model.Role, p
 
 	recsWithProds := make([]model.ReceptionWithProducts, len(recs))
 	for i, r := range recs {
-		prods, err := s.itemRepository.GetProductssByParams(
+		prods, err := s.itemRepository.GetProductsByParams(
 			ctx,
 			model.ProductFilter{ReceptionID: &r.ID},
 		)
