@@ -13,8 +13,8 @@
 docker network create pvz-net
 
 docker run -d \
-  --name db \
-  --network app-net \
+  --name pvz-db \
+  --network pvz-net \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=pvz-password \
   -e POSTGRES_DB=postgres \
@@ -28,7 +28,7 @@ docker run -d --name pvz-app \
   --network pvz-net \
   -p 8080:8080 \
   -p 3000:3000 \
-  -p 9000:9000
+  -p 9000:9000 \
   -e DSN="postgres://postgres:pvz-password@pvz-db:5432/postgres?sslmode=disable" \
   -e JWT_SECRET="test secret" \
   docker.io/websalad/pvz:latest
@@ -41,7 +41,7 @@ docker run -d --name pvz-app \
 
 #### **склонируйте репозиторий:**
 ```
-git clone github.com/webbsalad/pvz
+git clone https://github.com/webbsalad/pvz
 ```
 
 #### **в корне проекта создайте .env файл с наполнением вида:**
@@ -64,14 +64,7 @@ docker-compose up --build
 
 #### **создание сети и контейнера с postgres(если хотите использовать свою бд то просто в дальнейшем ссылках на бд вставляйте свою):**
 ```
-docker network create pvz-net
-
-docker run -d \
-  --name db \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=pvz-password \
-  -e POSTGRES_DB=postgres \
-  postgres:15-alpine
+docker run --name db -e POSTGRES_PASSWORD=pvz-password -p 5432:5432 -d postgres
 ```
 
 #### **склонируйте репозиторий:**
@@ -81,7 +74,7 @@ git clone github.com/webbsalad/pvz
 
 #### **выполнение миграций:**
 ```
-goose -dir migrations  postgres "postgres://postgres:pvz-password@localhost:5432/postgres?sslmode=disable" up
+goose -dir migrations postgres "postgres://postgres:pvz-password@localhost:5432/postgres?sslmode=disable" up
 ```
 
 #### **запуск приложения:**

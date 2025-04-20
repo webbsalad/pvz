@@ -53,7 +53,7 @@ func TestService_GetPVZIntervalList(t *testing.T) {
 					Return(tc.args.pvzs, nil)
 
 				deps.itemRepository.EXPECT().
-					GetProductssByParams(gomock.Any(), tc.args.productFilter).
+					GetProductsByParams(gomock.Any(), tc.args.productFilter).
 					Return(tc.args.products, nil)
 			},
 			args: args{
@@ -87,7 +87,7 @@ func TestService_GetPVZIntervalList(t *testing.T) {
 					Return(tc.args.pvzs, nil)
 
 				deps.itemRepository.EXPECT().
-					GetProductssByParams(gomock.Any(), tc.args.productFilter).
+					GetProductsByParams(gomock.Any(), tc.args.productFilter).
 					Return(tc.args.products, nil)
 			},
 			args: args{
@@ -121,7 +121,7 @@ func TestService_GetPVZIntervalList(t *testing.T) {
 					Return(tc.args.pvzs, nil)
 
 				deps.itemRepository.EXPECT().
-					GetProductssByParams(gomock.Any(), tc.args.productFilter).
+					GetProductsByParams(gomock.Any(), tc.args.productFilter).
 					Return(tc.args.products, model.ErrProductNotFound)
 			},
 			args: args{
