@@ -69,7 +69,7 @@ docker run --name db -e POSTGRES_PASSWORD=pvz-password -p 5432:5432 -d postgres
 
 #### **склонируйте репозиторий:**
 ```
-git clone github.com/webbsalad/pvz
+git clone https://github.com/webbsalad/pvz
 ```
 
 #### **выполнение миграций:**
